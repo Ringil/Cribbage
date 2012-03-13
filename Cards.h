@@ -26,12 +26,6 @@ protected:
     
     vector<card> deck;
     set<card> playedCards;
-
-private:
-    set<card>::iterator it;
-    vector<card>::iterator vit;
-    card cardz;
-
 public:
     Cards(); //Unshuffled deck of cards
     ~Cards();

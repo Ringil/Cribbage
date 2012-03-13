@@ -2,6 +2,7 @@
 
 Cards::Cards()
 {
+    card cardz;
     for(int i = 1; i<=13;  i++)
     {
         cardz.val = i;
@@ -33,6 +34,7 @@ void Cards::shuffle()
 
 void Cards::printDeck()
 {
+    vector<card>::iterator vit;
     for (vit=deck.begin(); vit!=deck.end(); ++vit)
     {
         if(vit->val == 11)
@@ -51,6 +53,7 @@ void Cards::printDeck()
 
 bool Cards::isPlayed(card checkCard)
 {
+    set<card>::iterator it;
     it = playedCards.find(checkCard);
     if(it != playedCards.end())
         return true;
