@@ -24,8 +24,10 @@ Thumbs.db
 *.lib
 *.sbr
 *.sln
+*.sdf
 *vcxproj*
 obj/
 [Rr]elease*/
 _ReSharper*/
+[Ii]pch*/
 [Tt]est[Rr]esult*
