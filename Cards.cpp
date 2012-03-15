@@ -2,6 +2,15 @@
 
 Cards::Cards()
 {
+}
+
+Cards::~Cards()
+{
+    //dummy destructor
+}
+
+void Cards::init()
+{
     card cardz;
     for(int i = 1; i<=13;  i++)
     {
@@ -19,11 +28,6 @@ Cards::Cards()
         cardz.suit = 'D';
         deck.push_back(cardz);
     }
-}
-
-Cards::~Cards()
-{
-    //dummy destructor
 }
 
 void Cards::shuffle()

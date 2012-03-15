@@ -3,6 +3,7 @@
 int main()
 {
     Cards newDeck;
+    newDeck.init();
 
     cout<<"\nPrinting shuffled deck:\n";
     newDeck.shuffle();

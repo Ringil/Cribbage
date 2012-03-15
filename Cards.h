@@ -29,6 +29,7 @@ protected:
 public:
     Cards(); //Unshuffled deck of cards
     ~Cards();
+    void init();
     void shuffle();
     void printDeck();
     bool isPlayed(card checkCard);
