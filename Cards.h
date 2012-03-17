@@ -32,6 +32,7 @@ public:
     void init();
     void shuffle();
     void printDeck();
+    void dealACard(vector<card> hand);
     bool isPlayed(card checkCard);
     int numCardsLeft();
 };
