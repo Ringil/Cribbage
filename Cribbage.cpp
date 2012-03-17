@@ -2,6 +2,7 @@
 
 Cribbage::Cribbage()
 {
+    
 }
 
 Cribbage::~Cribbage()

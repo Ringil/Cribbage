@@ -1,14 +1,15 @@
-#include "Cards.h"
+#include "Cribbage.h"
 
 int main()
 {
-    Cards newDeck;
-    newDeck.init();
+    Cribbage deck;
+    vector<card> hand;
 
-    cout<<"\nPrinting shuffled deck:\n";
-    newDeck.shuffle();
-    newDeck.shuffle();
-    newDeck.printDeck();
+    deck.init();
+    deck.shuffle();
+    deck.printDeck();
+    deck.dealACard(hand);
 
-    //newDeck.~Cards();
+    cout<<endl<<endl<<hand.at(0).val<<hand.at(0).suit<<endl;
+    cout<<"lakjsdklajsdlkj";
 }

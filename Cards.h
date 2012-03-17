@@ -11,29 +11,35 @@
 #include <cstdlib>
 using namespace std;
 
+//Structure of a basic card
+struct card
+{
+    int val;
+    char suit; 
+
+    /*WARNING: this hasn't been tested yet and may not work 
+    in windows (this is only a guess from previous experience).
+    May turn out not to be necessary if the set is not used*/
+    //Overwrite the < operator so the set can compare keys
+    bool operator<(const card &a) const
+    {
+        return((this->val < a.val) ? true:false);
+    }
+};
+
 class Cards
 {
-protected:
-    struct card
-    {
-        int val;
-        char suit; 
-        bool operator<(const card &a) const
-        {
-           return((this->val < a.val) ? true:false);
-        }
-    };
-    
+protected:    
     vector<card> deck;
-    set<card> playedCards;
+    set<card> playedCards; //THIS MAY BE UNNECESSARY
 public:
-    Cards(); //Unshuffled deck of cards
-    ~Cards();
-    void init();
-    void shuffle();
-    void printDeck();
-    void dealACard(vector<card> hand);
-    bool isPlayed(card checkCard);
-    int numCardsLeft();
+    Cards(); //Default Constructor 
+    ~Cards(); //Empty the deck
+    void init(); //Unshuffled deck of cards
+    void shuffle(); //Shuffle the deck
+    void printDeck(); //TO BE REMOVED
+    void dealACard(vector<card> &hand); //Deal a single card
+    bool isPlayed(card checkCard); //TO BE MOVED
+    int numCardsLeft(); //Number of cards left in the deck
 };
 #endif

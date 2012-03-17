@@ -4,9 +4,18 @@ Cards::Cards()
 {
 }
 
+/*
+Not sure if I should just make a seperate function to do this since I'm not
+releasing any memory.
+*/
 Cards::~Cards()
 {
-    //dummy destructor
+    vector<card>::iterator it;
+
+    for(it = deck.begin(); it != deck.end(); it++)
+    {
+        deck.pop_back();
+    }
 }
 
 void Cards::init()
@@ -32,6 +41,7 @@ void Cards::init()
 
 void Cards::shuffle()
 {
+    //TODO: Redo this later using boost to randomize the cards
     srand(unsigned(time(NULL)));
     random_shuffle(deck.begin(), deck.end());
 }
@@ -55,11 +65,16 @@ void Cards::printDeck()
     }
 }
 
-void Cards::dealACard(vector<card> hand)
+void Cards::dealACard(vector<card> &hand)
 {
-    vector<card>::iterator it = deck.end()-1;
-    hand.push_back(*it);
-    hand.pop_back();
+    vector<card>::iterator it = deck.end()-1; //Top of the deck
+
+    hand.push_back(*it); //Deal the card
+    playedCards.insert(*it); //Put the card in the set of cards that are already played
+
+    //PROBLEM HERE: Looks like it tries to do pop_back after my couts in game.cpp causing a
+    //problem that says vector iterator not incrementable
+    deck.pop_back(); //Remove the card from the deck
 }
 
 bool Cards::isPlayed(card checkCard)
@@ -73,5 +88,5 @@ bool Cards::isPlayed(card checkCard)
 
 int Cards::numCardsLeft()
 {
-    return (52-playedCards.size());
+    return deck.size();
 }
