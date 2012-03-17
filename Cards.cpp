@@ -57,7 +57,9 @@ void Cards::printDeck()
 
 void Cards::dealACard(vector<card> hand)
 {
-    hand.push_back(deck.begin());
+    vector<card>::iterator it = deck.end()-1;
+    hand.push_back(*it);
+    hand.pop_back();
 }
 
 bool Cards::isPlayed(card checkCard)
