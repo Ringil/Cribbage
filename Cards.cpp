@@ -74,7 +74,7 @@ void Cards::dealACard(vector<card> &hand)
 
     //PROBLEM HERE: Looks like it tries to do pop_back after my couts in game.cpp causing a
     //problem that says vector iterator not incrementable
-    deck.pop_back(); //Remove the card from the deck
+    //deck.pop_back(); //Remove the card from the deck
 }
 
 bool Cards::isPlayed(card checkCard)
