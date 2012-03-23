@@ -67,8 +67,11 @@ void Cards::printDeck()
 
 void Cards::dealACard(vector<card> &hand)
 {
+	/*
+	 * TODO: this is now going to be a lazy solution where you check if a card
+	 * is in the set and if so move the iterator to the next card to be dealt
+	*/
     vector<card>::iterator it = deck.end()-1; //Top of the deck
-
     hand.push_back(*it); //Deal the card
     playedCards.insert(*it); //Put the card in the set of cards that are already played
 
