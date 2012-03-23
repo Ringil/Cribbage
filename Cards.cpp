@@ -4,18 +4,9 @@ Cards::Cards()
 {
 }
 
-/*
-Not sure if I should just make a seperate function to do this since I'm not
-releasing any memory.
-*/
+
 Cards::~Cards()
 {
-    vector<card>::iterator it;
-
-    for(it = deck.begin(); it != deck.end(); it++)
-    {
-        deck.pop_back();
-    }
 }
 
 void Cards::init()
@@ -67,6 +58,9 @@ void Cards::printDeck()
 
 void Cards::dealACard(vector<card> &hand)
 {
+    /*TODO: Copy the value at the iterator into the hand and then just pop the vector. At least until
+    I figure out a more effecient way
+    */
     vector<card>::iterator it = deck.end()-1; //Top of the deck
 
     hand.push_back(*it); //Deal the card
