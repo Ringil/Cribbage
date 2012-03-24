@@ -32,14 +32,15 @@ class Cards
 protected:    
     vector<card> deck;
     set<card> playedCards; //THIS MAY BE UNNECESSARY
+    bool isPlayed(card checkCard); //TO BE MOVED
+    
 public:
     Cards(); //Default Constructor 
     ~Cards(); //Empty the deck
     void init(); //Unshuffled deck of cards
-    void shuffle(); //Shuffle the deck
-    void printDeck(); //TO BE REMOVED    
-    bool isPlayed(card checkCard); //TO BE MOVED
+    void shuffle(); //Shuffle the deck   
     int numCardsLeft(); //Number of cards left in the deck
+    void printDeck(); //TO BE REMOVED
     virtual void deal(vector<card> &hand); //Deal a single card
 };
 #endif
