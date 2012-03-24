@@ -62,12 +62,9 @@ void Cards::deal(vector<card> &hand)
 	 * This is now going to be a lazy solution where you check if a card
 	 * is in the set and if so move the iterator to the next card to be dealt
 	*/
-    
     vector<card>::iterator it = deck.end()-1; //Top of the deck
-    //int blah = this->numCardsLeft;
 
-    //Need to put a decksize check in here
-    while(true)
+    while(this->numCardsLeft() > 0)
     {
         if(!(this->isPlayed(*it)))
         {
@@ -76,13 +73,14 @@ void Cards::deal(vector<card> &hand)
             break;
         }
         else
-            it--;
+            it--; //Move on to next card in the deck
     }
 }
 
 bool Cards::isPlayed(card checkCard)
 {
     set<card>::iterator it;
+
     it = playedCards.find(checkCard);
     if(it != playedCards.end())
         return true;

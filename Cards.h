@@ -17,9 +17,6 @@ struct card
     int val;
     char suit; 
 
-    /*WARNING: this hasn't been tested yet and may not work 
-    in windows (this is only a guess from previous experience).
-    May turn out not to be necessary if the set is not used*/
     //Overwrite the < operator so the set can compare keys
     bool operator<(const card &a) const
     {
@@ -31,15 +28,15 @@ class Cards
 {
 protected:    
     vector<card> deck;
-    set<card> playedCards; //THIS MAY BE UNNECESSARY
-    bool isPlayed(card checkCard); //TO BE MOVED
+    set<card> playedCards;
+    bool isPlayed(card checkCard);
+    int numCardsLeft(); //Number of cards left in the deck
     
 public:
     Cards(); //Default Constructor 
     ~Cards(); //Empty the deck
     void init(); //Unshuffled deck of cards
-    void shuffle(); //Shuffle the deck   
-    int numCardsLeft(); //Number of cards left in the deck
+    void shuffle(); //Shuffle the deck    
     void printDeck(); //TO BE REMOVED
     virtual void deal(vector<card> &hand); //Deal a single card
 };
