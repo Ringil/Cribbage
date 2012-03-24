@@ -8,7 +8,7 @@ int main()
     deck.init();
     deck.shuffle();
     deck.printDeck();
-    deck.dealACard(hand);
+    deck.deal(hand);
 
     cout<<endl<<endl<<hand.at(0).val<<hand.at(0).suit<<endl;
     cout<<"lakjsdklajsdlkj";

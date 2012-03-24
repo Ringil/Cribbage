@@ -37,9 +37,9 @@ public:
     ~Cards(); //Empty the deck
     void init(); //Unshuffled deck of cards
     void shuffle(); //Shuffle the deck
-    void printDeck(); //TO BE REMOVED
-    void dealACard(vector<card> &hand); //Deal a single card
+    void printDeck(); //TO BE REMOVED    
     bool isPlayed(card checkCard); //TO BE MOVED
     int numCardsLeft(); //Number of cards left in the deck
+    virtual void deal(vector<card> &hand); //Deal a single card
 };
 #endif

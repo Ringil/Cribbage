@@ -62,13 +62,22 @@ void Cards::deal(vector<card> &hand)
 	 * TODO: this is now going to be a lazy solution where you check if a card
 	 * is in the set and if so move the iterator to the next card to be dealt
 	*/
+    
     vector<card>::iterator it = deck.end()-1; //Top of the deck
-    hand.push_back(*it); //Deal the card
-    playedCards.insert(*it); //Put the card in the set of cards that are already played
+    //int blah = this->numCardsLeft;
 
-    //PROBLEM HERE: Looks like it tries to do pop_back after my couts in game.cpp causing a
-    //problem that says vector iterator not incrementable
-    //deck.pop_back(); //Remove the card from the deck
+    //Need to put a decksize check in here
+    while(true)
+    {
+        if(!(this->isPlayed(*it)))
+        {
+            hand.push_back(*it); //Deal the card
+            playedCards.insert(*it); //Put the card in the set of cards that are already played
+            break;
+        }
+        else
+            it--;
+    }
 }
 
 bool Cards::isPlayed(card checkCard)
@@ -82,5 +91,5 @@ bool Cards::isPlayed(card checkCard)
 
 int Cards::numCardsLeft()
 {
-    return deck.size();
+    return playedCards.size()-52;
 }

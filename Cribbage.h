@@ -3,7 +3,7 @@
 
 #include "Cards.h"
 
-class Cribbage: public Cards
+class Cribbage : public Cards
 {
 public:
     Cribbage();
