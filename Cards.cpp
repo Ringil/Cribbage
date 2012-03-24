@@ -68,7 +68,7 @@ void Cards::deal(vector<card> &hand)
         deck.pop_back();
     }
     else
-        cout<<endl<<"No more cards left in the deck!"<<endl;
+        cout<<endl<<"No more cards left in the deck!"<<endl; //blah
 }
 
 //This may become useless
