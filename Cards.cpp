@@ -89,5 +89,5 @@ bool Cards::isPlayed(card checkCard)
 
 int Cards::numCardsLeft()
 {
-    return playedCards.size()-52;
+    return 52-playedCards.size();
 }
