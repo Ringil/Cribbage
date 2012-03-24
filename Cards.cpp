@@ -62,6 +62,7 @@ void Cards::deal(vector<card> &hand)
 	 * This is now going to be a lazy solution where you check if a card
 	 * is in the set and if so move the iterator to the next card to be dealt
 	*/
+    //TODO: use old system but make sure to decrement the iterator before popping vector
     vector<card>::iterator it = deck.end()-1; //Top of the deck
 
     while(this->numCardsLeft() > 0)
