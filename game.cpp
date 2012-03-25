@@ -5,11 +5,8 @@ int main()
     Cribbage deck;
     vector<card> hand;
 
-    deck.init();
     deck.shuffle();
     deck.printDeck();
-    deck.deal(hand);
-    cout<<endl<<deck.numCardsLeft()<<endl;
     deck.deal(hand);
     cout<<endl<<deck.numCardsLeft()<<endl;
 

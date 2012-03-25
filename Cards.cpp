@@ -2,15 +2,6 @@
 
 Cards::Cards()
 {
-}
-
-
-Cards::~Cards()
-{
-}
-
-void Cards::init()
-{
     card cardz;
     for(int i = 1; i<=13;  i++)
     {
@@ -28,6 +19,12 @@ void Cards::init()
         cardz.suit = 'D';
         deck.push_back(cardz);
     }
+}
+
+
+Cards::~Cards()
+{
+	deck.clear();//TODO: Fix this
 }
 
 void Cards::shuffle()

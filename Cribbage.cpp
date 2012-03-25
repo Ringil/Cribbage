@@ -11,7 +11,7 @@
  * -Allow for human players to calculate their own score and AI can correct
  */
 Cribbage::Cribbage()
-{    
+{
 }
 
 Cribbage::~Cribbage()
