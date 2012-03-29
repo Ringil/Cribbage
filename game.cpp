@@ -30,9 +30,10 @@ int main()
 
 bool yesNo()
 {
+    //TODO:Make this work so just pressing enter acts as yes
     char response;
     cout<<"Would you like to play again? [Y/n]: ";
-    cin>>response; //Doesn't work with no value put in at stdin
+    cin>>response;
     switch(response)
     {
         case 'Y':

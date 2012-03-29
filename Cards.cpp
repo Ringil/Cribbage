@@ -21,12 +21,6 @@ Cards::Cards()
     }
 }
 
-
-Cards::~Cards()
-{
-	deck.clear();//TODO: Fix this
-}
-
 void Cards::shuffle()
 {
     //TODO: Redo this later using boost to randomize the cards
