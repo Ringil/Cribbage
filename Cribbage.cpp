@@ -10,6 +10,7 @@
  * -Calculate own hand and kitty
  * -Allow for human players to calculate their own score and AI can correct
  */
+
 Cribbage::Cribbage(int numHumans, int numAI)
 {
     //TODO: Find out if I need to redo the default constructor for this to be the same as cards.cpp
