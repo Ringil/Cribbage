@@ -65,10 +65,10 @@ void Cards::deal(vector<card> &hand)
         deck.pop_back();
     }
     else
-        cout<<endl<<"No more cards left in the deck!"<<endl; //blah
+        cout<<endl<<"No more cards left in the deck!"<<endl;
 }
 
-//This may become useless
+//TODO: This may become useless
 bool Cards::isPlayed(card checkCard)
 {
     set<card>::iterator it;
