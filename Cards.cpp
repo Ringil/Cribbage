@@ -55,7 +55,6 @@ void Cards::deal(vector<card> &hand)
     {
         hand.push_back(*it); //Deal the card
         playedCards.insert(*it); //Put the card in the set of cards that are already played
-        it--; //Move the iterator to the next card in the deck because you are about to pop the vector
         deck.pop_back();
     }
     else
