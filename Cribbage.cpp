@@ -38,12 +38,10 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2)
         {
             hand1.push_back(*it); //Deal the card
             playedCards.insert(*it); //Put the card in the set of cards that are already played
-            it--; //Move the iterator to the next card in the deck because you are about to pop the vector
             deck.pop_back();
 
             hand2.push_back(*it); //Deal the card
             playedCards.insert(*it); //Put the card in the set of cards that are already played
-            it--; //Move the iterator to the next card in the deck because you are about to pop the vector
             deck.pop_back();
         }
     }
@@ -63,17 +61,14 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand
         {
             hand1.push_back(*it); //Deal the card
             playedCards.insert(*it); //Put the card in the set of cards that are already played
-            it--; //Move the iterator to the next card in the deck because you are about to pop the vector
             deck.pop_back();
 
             hand2.push_back(*it); //Deal the card
             playedCards.insert(*it); //Put the card in the set of cards that are already played
-            it--; //Move the iterator to the next card in the deck because you are about to pop the vector
             deck.pop_back();
 
             hand3.push_back(*it); //Deal the card
             playedCards.insert(*it); //Put the card in the set of cards that are already played
-            it--; //Move the iterator to the next card in the deck because you are about to pop the vector
             deck.pop_back();
         }
     }
