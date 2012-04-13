@@ -31,10 +31,10 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2)
     //TODO: POSSIBLY REMOVE PLAYEDCARDS
     vector<card>::iterator it = deck.end() - 1; //Top of the deck
 
-    if(!deck.empty())
+    if(this->numCardsLeft() >= 12)
     {
-        //Deal 6 cards to each player
-        for(int i = 0; i < 5; i++)
+        //Deal 6 cards to each hand
+        for(int i = 0; i <= 5; i++)
         {
             hand1.push_back(*it); //Deal the card
             playedCards.insert(*it); //Put the card in the set of cards that are already played
@@ -54,9 +54,9 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand
     //TODO: POSSIBLY REMOVE PLAYEDCARDS
     vector<card>::iterator it = deck.end() - 1; //Top of the deck
 
-    if(!deck.empty())
+    if(this->numCardsLeft() >= 15)
     {
-        //Deal 6 cards to each player
+        //Deal 5 cards to each player
         for(int i = 0; i < 5; i++)
         {
             hand1.push_back(*it); //Deal the card
@@ -80,14 +80,15 @@ card Cribbage::cutDeck()
 {
     int max = this->numCardsLeft()-1;
     int index = 0;
-    mt19937 gen;
-    uniform_int_distribution<> dist(0, max);
     card cut;
+
+    mt19937 gen;
+    uniform_int_distribution<> dist(0, max); //A closed range
 
     index = dist(gen);
     cut.suit = deck.at(index).suit;
     cut.val = deck.at(index).val;
 
-    deck.erase(deck.begin()+index-1); //COULD BE OFF BY ONE
+    deck.erase(deck.begin()+index-1);
     return cut;
 }
