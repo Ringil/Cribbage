@@ -14,14 +14,14 @@
 Cribbage::Cribbage(int numHumans, int numAI)
 {
     //TODO: Find out if I need to redo the default constructor for this to be the same as cards.cpp
-    if(numHumans + numAI >= 1)
+    if(numHumans + numAI >= 2 && numHumans + numAI <= 3)
     {
         this->numHumans = numHumans;
         this->numAI = numAI;
     }
     else
     {
-        cout << "Not enough players";
+        cout << "Incorrect number of players";
         exit(0); //TODO: Fix this
     }
 }
@@ -74,4 +74,20 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand
     }
     else
         cout << endl << "No more cards left in the deck!" << endl;
+}
+
+card Cribbage::cutDeck()
+{
+    int max = this->numCardsLeft()-1;
+    int index = 0;
+    mt19937 gen;
+    uniform_int_distribution<> dist(0, max);
+    card cut;
+
+    index = dist(gen);
+    cut.suit = deck.at(index).suit;
+    cut.val = deck.at(index).val;
+
+    deck.erase(deck.begin()+index-1); //COULD BE OFF BY ONE
+    return cut;
 }

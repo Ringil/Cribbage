@@ -1,6 +1,11 @@
 #ifndef CRIBBAGE_H
 #define CRIBBAGE_H
 
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_int_distribution.hpp>
+using namespace boost;
+using namespace random;
+
 #include "Cards.h"
 
 class Cribbage : public Cards
@@ -10,7 +15,8 @@ private:
 	int numAI;
 public:
 	Cribbage(int numHumans, int numAI);
-	void deal(vector<card> &hand1, vector<card> &hand2);
-	void deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand3);
+	void deal(vector<card> &hand1, vector<card> &hand2); //Deal 6 cards to 2 hands
+	void deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand3); //Deal 5 cards to 3 hands
+    card cutDeck(); //Choose and remove the cut card from the deck
 };
 #endif
