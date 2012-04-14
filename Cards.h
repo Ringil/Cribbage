@@ -28,7 +28,6 @@ class Cards
 {
 protected:    
     vector<card> deck;
-    set<card> playedCards;  //PROBABLY USELESS  
     bool isPlayed(card checkCard);    
 public:
     Cards(); //Default Constructor 

@@ -18,7 +18,6 @@ Cribbage::Cribbage(int numHumans, int numAI)
 
 void Cribbage::deal(vector<card> &hand1, vector<card> &hand2)
 {
-    //TODO: POSSIBLY REMOVE PLAYEDCARDS
     vector<card>::iterator it = deck.end() - 1; //Top of the deck
 
     if(this->numCardsLeft() >= 12)
@@ -27,11 +26,9 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2)
         for(int i = 0; i < 6; i++)
         {
             hand1.push_back(*it); //Deal the card
-            playedCards.insert(*it); //Put the card in the set of cards that are already played
             deck.pop_back();
 
             hand2.push_back(*it); //Deal the card
-            playedCards.insert(*it); //Put the card in the set of cards that are already played
             deck.pop_back();
         }
     }
@@ -41,7 +38,6 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2)
 
 void Cribbage::deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand3)
 {
-    //TODO: POSSIBLY REMOVE PLAYEDCARDS
     vector<card>::iterator it = deck.end() - 1; //Top of the deck
 
     if(this->numCardsLeft() >= 15)
@@ -50,15 +46,12 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand
         for(int i = 0; i < 5; i++)
         {
             hand1.push_back(*it); //Deal the card
-            playedCards.insert(*it); //Put the card in the set of cards that are already played
             deck.pop_back();
 
             hand2.push_back(*it); //Deal the card
-            playedCards.insert(*it); //Put the card in the set of cards that are already played
             deck.pop_back();
 
             hand3.push_back(*it); //Deal the card
-            playedCards.insert(*it); //Put the card in the set of cards that are already played
             deck.pop_back();
         }
     }

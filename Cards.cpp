@@ -54,7 +54,6 @@ void Cards::deal(vector<card> &hand)
     if(!deck.empty())
     {
         hand.push_back(*it); //Deal the card
-        playedCards.insert(*it); //Put the card in the set of cards that are already played
         deck.pop_back(); //Remove the card from the deck
     }
     else
