@@ -1,10 +1,8 @@
 #include "Cribbage.h"
 /*
- * -Need number of human/AI players
  * -Randomly choose first player and make sure turns are taken clockwise
  * -Deal cards based on that number
  * -Everyone throws into the kitty and possibly a card from the deck is put in the kitty
- * -Cut the deck
  * -Play
  * -Reveal hand
  * -Calculate own hand and kitty
@@ -14,16 +12,8 @@
 Cribbage::Cribbage(int numHumans, int numAI)
 {
     //TODO: Find out if I need to redo the default constructor for this to be the same as cards.cpp
-    if(numHumans + numAI >= 2 && numHumans + numAI <= 3)
-    {
-        this->numHumans = numHumans;
-        this->numAI = numAI;
-    }
-    else
-    {
-        cout << "Incorrect number of players";
-        exit(0); //TODO: Fix this
-    }
+    this->numHumans = numHumans;
+    this->numAI = numAI;
 }
 
 void Cribbage::deal(vector<card> &hand1, vector<card> &hand2)
@@ -34,7 +24,7 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2)
     if(this->numCardsLeft() >= 12)
     {
         //Deal 6 cards to each hand
-        for(int i = 0; i <= 5; i++)
+        for(int i = 0; i < 6; i++)
         {
             hand1.push_back(*it); //Deal the card
             playedCards.insert(*it); //Put the card in the set of cards that are already played
@@ -78,7 +68,7 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand
 
 card Cribbage::cutDeck()
 {
-    int max = this->numCardsLeft()-1;
+    int max = this->numCardsLeft()-1; //-1 because boost::uid uses a closed range
     int index = 0;
     card cut;
 
