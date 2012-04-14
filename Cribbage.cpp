@@ -88,6 +88,6 @@ card Cribbage::cutDeck()
     cut.suit = deck.at(index).suit;
     cut.val = deck.at(index).val;
 
-    deck.erase(deck.begin()+index-1); //COULD BE OFF BY ONE
+    deck.erase(deck.begin()+index-1);
     return cut;
 }
