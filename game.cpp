@@ -8,32 +8,32 @@ int main()
 {
     int numHumans, numAI;
 
-    do{
-        //TODO: Find old menu code
-        cout<<"blah"<<endl<<endl;
-    }while(yesNo());
+//    do
+//    {
+//        //TODO: Find old menu code
+//        cout << "blah" << endl << endl;
+//    } while(yesNo());
 
-    /*OLD TEST CODE
-     Cribbage deck;
-     vector<card> hand;
+    //OLD TEST CODE
+    Cribbage game(1,1);
+    vector<card> hand;
 
-     deck.shuffle();
-     deck.printDeck();
-     deck.deal(hand);
-     cout<<endl<<deck.numCardsLeft()<<endl;
+    game.shuffle();
+    game.printDeck();
+    cout << endl << game.numCardsLeft() << endl;
 
-     for(vector<card>::iterator it = hand.begin(); it!=hand.end(); it++)
-     {
-     cout<<endl<<it->val<<it->suit<<endl;
-     }*/
+//    for(vector<card>::iterator it = hand.begin(); it != hand.end(); it++)
+//    {
+//        cout << endl << it->val << it->suit << endl;
+//    }
 }
 
 bool yesNo()
 {
     //TODO:Make this work so just pressing enter acts as yes
     char response;
-    cout<<"Would you like to play again? [Y/n]: ";
-    cin>>response;
+    cout << "Would you like to play again? [Y/n]: ";
+    cin >> response;
     switch(response)
     {
         case 'Y':

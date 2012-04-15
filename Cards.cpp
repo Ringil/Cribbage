@@ -60,17 +60,6 @@ void Cards::deal(vector<card> &hand)
         cout<<endl<<"No more cards left in the deck!"<<endl;
 }
 
-//TODO: This may become useless
-bool Cards::isPlayed(card checkCard)
-{
-    set<card>::iterator it;
-
-    it = playedCards.find(checkCard);
-    if(it != playedCards.end())
-        return true;
-    return false;
-}
-
 int Cards::numCardsLeft()
 {
     return deck.size();

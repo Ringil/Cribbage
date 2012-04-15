@@ -28,7 +28,6 @@ class Cards
 {
 protected:    
     vector<card> deck;
-    bool isPlayed(card checkCard);    
 public:
     Cards(); //Default Constructor 
     void shuffle(); //Shuffle the deck (Currently does not shuffle very well)
