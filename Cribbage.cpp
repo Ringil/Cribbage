@@ -11,9 +11,26 @@
 
 Cribbage::Cribbage(int numHumans, int numAI)
 {
-    //TODO: Find out if I need to redo the default constructor for this to be the same as cards.cpp
     this->numHumans = numHumans;
     this->numAI = numAI;
+}
+
+int Cribbage::calcHand(vector<card> hand)
+{
+    return 0;
+}
+
+int Cribbage::calc15(vector<card> hand)
+{
+    //placeholder
+}
+int Cribbage::calcRuns(vector<card> hand)
+{
+    //placeholder
+}
+int Cribbage::calcPairs(vector<card> hand)
+{
+    //placeholder
 }
 
 void Cribbage::deal(vector<card> &hand1, vector<card> &hand2)
@@ -61,7 +78,7 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand
 
 card Cribbage::cutDeck()
 {
-    int max = this->numCardsLeft()-1; //-1 because boost::uid uses a closed range
+    int max = this->numCardsLeft() - 1; //-1 because boost::uid uses a closed range
     int index = 0;
     card cut;
 
@@ -72,6 +89,6 @@ card Cribbage::cutDeck()
     cut.suit = deck.at(index).suit;
     cut.val = deck.at(index).val;
 
-    deck.erase(deck.begin()+index-1);
+    deck.erase(deck.begin() + index - 1);
     return cut;
 }
