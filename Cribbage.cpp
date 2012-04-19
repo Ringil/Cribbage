@@ -15,23 +15,40 @@ Cribbage::Cribbage(int numHumans, int numAI)
     this->numAI = numAI;
 }
 
-int Cribbage::calcScore(vector<card> hand)
+int Cribbage::calcScore(vector<card> hand, card cut)
 {
-    return calc15(hand) + calcRuns(hand) + calcPairs(hand);
+    return calc15(hand, cut) + calcRuns(hand, cut) + calcPairs(hand, cut) + calcRightJack(hand, cut);
 }
 
-int Cribbage::calc15(vector<card> hand)
+int Cribbage::calc15(vector<card> hand, card cut)
 {
     return 0;
 }
 
-int Cribbage::calcRuns(vector<card> hand)
+int Cribbage::calcRuns(vector<card> hand, card cut)
 {
     return 0;
 }
 
-int Cribbage::calcPairs(vector<card> hand)
+int Cribbage::calcPairs(vector<card> hand, card cut)
 {
+    return 0;
+}
+
+int Cribbage::calcRightJack(vector<card> hand, card cut)
+{
+    /*
+     * TODO: Take care of all Jack situations currently only takes care of
+     * if you have a jack that is the same suit as the cut card
+     */
+    vector<card>::iterator it;
+
+    //Check if you have a jack in your hand and if the cut card is the same suit
+    for(it = hand.begin(); it != hand.end(); it++)
+    {
+        if(it->val == 11 && strcmp((const char*)it->suit, (const char *)cut.suit) == 0)
+            return 1;
+    }
     return 0;
 }
 
