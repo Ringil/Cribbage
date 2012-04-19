@@ -16,12 +16,6 @@ struct card
 {
     int val;
     char suit; 
-
-    //Overwrite the < operator so the set can compare keys
-    bool operator<(const card &a) const
-    {
-        return((this->val < a.val) ? true:false);
-    }
 };
 
 class Cards
@@ -31,7 +25,7 @@ protected:
 public:
     Cards(); //Default Constructor 
     void shuffle(); //Shuffle the deck (Currently does not shuffle very well)
-    void printDeck(); //TO BE REMOVED
+    void printDeck(); //TODO: TO BE REMOVED
     int numCardsLeft(); //Number of cards left in the deck
     virtual void deal(vector<card> &hand); //Deal a single card
 };

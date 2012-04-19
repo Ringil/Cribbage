@@ -2,7 +2,7 @@
 /*
  * -Randomly choose first player and make sure turns are taken clockwise
  * -Deal cards based on that number
- * -Everyone throws into the kitty and possibly a card from the deck is put in the kitty
+ * -Everyone throws into the kitty and a card from the deck is put in the kitty
  * -Play
  * -Reveal hand
  * -Calculate own hand and kitty
@@ -15,22 +15,24 @@ Cribbage::Cribbage(int numHumans, int numAI)
     this->numAI = numAI;
 }
 
-int Cribbage::calcHand(vector<card> hand)
+int Cribbage::calcScore(vector<card> hand)
 {
-    return 0;
+    return calc15(hand) + calcRuns(hand) + calcPairs(hand);
 }
 
 int Cribbage::calc15(vector<card> hand)
 {
-    //placeholder
+    return 0;
 }
+
 int Cribbage::calcRuns(vector<card> hand)
 {
-    //placeholder
+    return 0;
 }
+
 int Cribbage::calcPairs(vector<card> hand)
 {
-    //placeholder
+    return 0;
 }
 
 void Cribbage::deal(vector<card> &hand1, vector<card> &hand2)
@@ -81,7 +83,6 @@ card Cribbage::cutDeck()
     int max = this->numCardsLeft() - 1; //-1 because boost::uid uses a closed range
     int index = 0;
     card cut;
-
     mt19937 gen;
     uniform_int_distribution<> dist(0, max); //A closed range
 
