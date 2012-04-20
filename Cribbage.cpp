@@ -106,7 +106,7 @@ card Cribbage::cutDeck()
     index = dist(gen);
     cut.suit = deck.at(index).suit;
     cut.val = deck.at(index).val;
-
     deck.erase(deck.begin() + index - 1);
+
     return cut;
 }
