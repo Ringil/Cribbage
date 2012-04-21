@@ -17,9 +17,9 @@ class Cribbage : public Cards
 private:
 	int numHumans;
 	int numAI;
-	int calc15(vector<card> hand, card cut);
-	int calcRuns(vector<card> hand, card cut);
-	int calcPairs(vector<card> hand, card cut);
+	int calc15(vector<card> hand);
+	int calcRuns(vector<card> hand);
+	int calcPairs(vector<card> hand);
 	int calcRightJack(vector<card> hand, card cut);
 	void eraseStack(stack<card> &sameCards);
 

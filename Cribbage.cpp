@@ -17,29 +17,33 @@ Cribbage::Cribbage(int numHumans, int numAI)
 
 int Cribbage::calcScore(vector<card> hand, card cut)
 {
-    return calc15(hand, cut) + calcRuns(hand, cut) + calcPairs(hand, cut) + calcRightJack(hand, cut);
+    int total = 0;
+
+    total = calcRightJack(hand, cut);
+
+    hand.push_back(cut); //Combine the cut with your hand
+    sort(hand.begin(),hand.end()); //Sort cards by val
+
+    total += calc15(hand) + calcRuns(hand) + calcPairs(hand);
+
+    return total;
 }
 
-int Cribbage::calc15(vector<card> hand, card cut)
+int Cribbage::calc15(vector<card> hand)
 {
     return 0;
 }
 
-int Cribbage::calcRuns(vector<card> hand, card cut)
+int Cribbage::calcRuns(vector<card> hand)
 {
     return 0;
 }
 
-int Cribbage::calcPairs(vector<card> hand, card cut)
+int Cribbage::calcPairs(vector<card> hand)
 {
     stack<card> sameCards;
     vector<card>::iterator it;
     int total = 0;
-
-    hand.push_back(cut); //Push the cut card onto the hand
-
-    //Sort the hand by val to make finding all of the same valued cards easier
-    sort(hand.begin(), hand.end());
 
     for(it = hand.begin(); it != hand.end(); it++)
     {
