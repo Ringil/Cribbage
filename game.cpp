@@ -14,8 +14,8 @@ int main()
 //        cout << "blah" << endl << endl;
 //    } while(yesNo());
 
-    //OLD TEST CODE
-    Cribbage game(1,1);
+//OLD TEST CODE
+    Cribbage game(1, 1);
     vector<card> hand;
 
     game.shuffle();
@@ -36,10 +36,12 @@ bool yesNo()
     cin >> response;
     switch(response)
     {
+        case 'n':
+        case 'N':
+            return false;
         case 'Y':
         case 'y':
-            return true;
         default:
-            return false;
+            return true;
     }
 }
