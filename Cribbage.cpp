@@ -32,7 +32,39 @@ int Cribbage::calcRuns(vector<card> hand, card cut)
 
 int Cribbage::calcPairs(vector<card> hand, card cut)
 {
-    return 0;
+    stack<card> sameCards;
+    vector<card>::iterator it;
+    int total = 0;
+
+    hand.push_back(cut); //Push the cut card onto the hand
+    sort(hand.begin(), hand.end()); //Sort the hand by val
+
+    for(it = hand.begin(); it != hand.end(); it++)
+    {
+        //If nothing in the stack or if the card is the same as what is on the stack, push the card
+        if(sameCards.empty() || it->val == sameCards.top().val)
+        {
+            sameCards.push(*it);
+        }
+
+        if(it == hand.end() - 1 || (it + 1)->val != sameCards.top().val)
+        {
+            total += (int) (pow((double) sameCards.size(), 2) - sameCards.size());
+            eraseStack(sameCards);
+        }
+    }
+    return total;
+}
+
+void Cribbage::eraseStack(stack<card> &cards)
+{
+    /*
+     * A utility function for erasing the stack
+     */
+    while(!cards.empty())
+    {
+        cards.pop();
+    }
 }
 
 int Cribbage::calcRightJack(vector<card> hand, card cut)
@@ -46,7 +78,7 @@ int Cribbage::calcRightJack(vector<card> hand, card cut)
     //Check if you have a jack in your hand and if the cut card is the same suit
     for(it = hand.begin(); it != hand.end(); it++)
     {
-        if(it->val == 11 && strcmp((const char*)it->suit, (const char *)cut.suit) == 0)
+        if(it->val == 11 && strcmp((const char*) it->suit, (const char *) cut.suit) == 0)
             return 1;
     }
     return 0;

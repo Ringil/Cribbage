@@ -1,8 +1,9 @@
 #ifndef CRIBBAGE_H
 #define CRIBBAGE_H
 
-#include <cstdio>
 #include <cstring>
+#include <cmath>
+#include <stack>
 using namespace std;
 
 #include <boost/random/mersenne_twister.hpp>
@@ -20,6 +21,7 @@ private:
 	int calcRuns(vector<card> hand, card cut);
 	int calcPairs(vector<card> hand, card cut);
 	int calcRightJack(vector<card> hand, card cut);
+	void eraseStack(stack<card> &sameCards);
 
 public:
 	Cribbage(int numHumans, int numAI);

@@ -15,7 +15,13 @@ using namespace std;
 struct card
 {
     int val;
-    char suit; 
+    char suit;
+
+    //Overwrite the < operator so the set can compare keys
+    bool operator<(const card &a) const
+    {
+        return((this->val < a.val) ? true:false);
+    }
 };
 
 class Cards
