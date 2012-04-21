@@ -37,7 +37,9 @@ int Cribbage::calcPairs(vector<card> hand, card cut)
     int total = 0;
 
     hand.push_back(cut); //Push the cut card onto the hand
-    sort(hand.begin(), hand.end()); //Sort the hand by val
+
+    //Sort the hand by val to make finding all of the same valued cards easier
+    sort(hand.begin(), hand.end());
 
     for(it = hand.begin(); it != hand.end(); it++)
     {
@@ -47,9 +49,13 @@ int Cribbage::calcPairs(vector<card> hand, card cut)
             sameCards.push(*it);
         }
 
+        //This makes sure you calculate all the points even if the last two cards are the same.
         if(it == hand.end() - 1 || (it + 1)->val != sameCards.top().val)
         {
+            //Calculate amount of points from the amount of same cards ((n^2)-n)
             total += (int) (pow((double) sameCards.size(), 2) - sameCards.size());
+
+            //Remove all cards from the stack
             eraseStack(sameCards);
         }
     }
