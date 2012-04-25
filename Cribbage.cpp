@@ -22,7 +22,7 @@ int Cribbage::calcScore(vector<card> hand, card cut)
     total = calcRightJack(hand, cut);
 
     hand.push_back(cut); //Combine the cut with your hand
-    sort(hand.begin(),hand.end()); //Sort cards by val
+    sort(hand.begin(), hand.end()); //Sort cards by val
 
     total += calc15(hand) + calcRuns(hand) + calcPairs(hand);
 
@@ -36,7 +36,26 @@ int Cribbage::calc15(vector<card> hand)
 
 int Cribbage::calcRuns(vector<card> hand)
 {
-    return 0;
+    int counter = 0;
+
+    /* FIXME
+     * This doesn't work at all. Won't detect multiple runs and the logic right now
+     * is pretty terrible.
+     */
+    for(vector<card>::iterator it = hand.begin(); it != hand.end(); it++)
+    {
+        if(it != hand.end() - 1)
+        {
+            if((it + 1)->val == (it->val) + 1)
+                counter++;
+            else if(counter >= 3)
+                return counter;
+            else
+                counter = 0;
+        }
+    }
+
+    return counter;
 }
 
 int Cribbage::calcPairs(vector<card> hand)
