@@ -41,6 +41,10 @@ int Cribbage::calcRuns(vector<card> hand)
     /* FIXME
      * This doesn't work at all. Won't detect multiple runs and the logic right now
      * is pretty terrible.
+     *
+     * TODO: Use unique_copy and then get the difference between the two vectors
+     * if a run was found in the unique set then check to see if the diff has the same vals
+     * as any cards in the run set
      */
     for(vector<card>::iterator it = hand.begin(); it != hand.end(); it++)
     {
