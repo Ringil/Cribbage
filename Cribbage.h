@@ -4,6 +4,7 @@
 #include <cstring>
 #include <cmath>
 #include <stack>
+#include <set>
 using namespace std;
 
 #include <boost/random/mersenne_twister.hpp>
@@ -21,6 +22,7 @@ private:
 	int calcRuns(vector<card> hand);
 	int calcPairs(vector<card> hand);
 	int calcRightJack(vector<card> hand, card cut);
+	bool comparisonFunc(card i, card j);
 	void eraseStack(stack<card> &sameCards);
 
 public:

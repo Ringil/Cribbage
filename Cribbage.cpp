@@ -24,6 +24,7 @@ int Cribbage::calcScore(vector<card> hand, card cut)
     hand.push_back(cut); //Combine the cut with your hand
     sort(hand.begin(), hand.end()); //Sort cards by val
 
+    //Calculate rest of the points
     total += calc15(hand) + calcRuns(hand) + calcPairs(hand);
 
     return total;
@@ -36,30 +37,38 @@ int Cribbage::calc15(vector<card> hand)
 
 int Cribbage::calcRuns(vector<card> hand)
 {
+    //FIXME MAY HAVE A PROBLEM HERE With the sets
     int counter = 0;
+    multiset<card> fullHand;
+    set<card> uniqueHand;
+    vector<card> diff;
 
-    /* FIXME
-     * This doesn't work at all. Won't detect multiple runs and the logic right now
-     * is pretty terrible.
-     *
-     * TODO: Use unique_copy and then get the difference between the two vectors
-     * if a run was found in the unique set then check to see if the diff has the same vals
-     * as any cards in the run set
+    //MIGHT BE UNNECESSARY SINCE SETS ONLY TAKE UNIQUE VALUES ANYWAY
+    //Make a copy of only the unique values from the original hand
+    unique_copy(hand.begin(), hand.end(), uniqueHand.begin(),comparisonFunc);
+
+    //Copy the full hand into a set so the set difference can be used
+    copy(hand.begin(), hand.end(), fullHand.begin());
+
+    unique(hand.begin(), hand.end());
+
+    //Find the difference between the full hand and unique hand
+    set_symmetric_difference(fullHand.begin(), fullHand.end(), uniqueHand.begin(), uniqueHand.end(), diff.begin());
+
+    /*
+     * Loop through unique hand and see if there is a run.
+     * If there is a run then check if diff contains any of the same values
+     * as the ones in the run.
+     * If so add appropriate amount of points
      */
-    for(vector<card>::iterator it = hand.begin(); it != hand.end(); it++)
-    {
-        if(it != hand.end() - 1)
-        {
-            if((it + 1)->val == (it->val) + 1)
-                counter++;
-            else if(counter >= 3)
-                return counter;
-            else
-                counter = 0;
-        }
-    }
 
     return counter;
+}
+
+bool Cribbage::comparisonFunc(card i, card j)
+{
+    //FIXME: MAY HAVE A PROBLEM HERE BUT SHOULD WORK
+    return i.val == j.val;
 }
 
 int Cribbage::calcPairs(vector<card> hand)
