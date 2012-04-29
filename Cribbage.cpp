@@ -51,6 +51,10 @@ int Cribbage::calcRuns(vector<card> hand)
             runs.push(*it);
         else if(it->val == runs.top().val)
             duplicate.push_back(*it);
+
+        if(it == copyHand.end() - 1 || (it + 1)->val == runs.top().val)
+        {
+        }
     }
     return counter;
 }
