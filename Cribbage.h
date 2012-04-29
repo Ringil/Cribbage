@@ -4,7 +4,7 @@
 #include <cstring>
 #include <cmath>
 #include <stack>
-#include <set>
+#include <deque>
 using namespace std;
 
 #include <boost/random/mersenne_twister.hpp>

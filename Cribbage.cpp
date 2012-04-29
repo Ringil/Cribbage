@@ -37,38 +37,22 @@ int Cribbage::calc15(vector<card> hand)
 
 int Cribbage::calcRuns(vector<card> hand)
 {
-    //FIXME MAY HAVE A PROBLEM HERE With the sets
     int counter = 0;
-    multiset<card> fullHand;
-    set<card> uniqueHand;
-    vector<card> diff;
+    deque<card> copyHand;
+    stack<card> runs;
+    vector<card> duplicate;
+    deque<card>::iterator it;
 
-    //MIGHT BE UNNECESSARY SINCE SETS ONLY TAKE UNIQUE VALUES ANYWAY
-    //Make a copy of only the unique values from the original hand
-    unique_copy(hand.begin(), hand.end(), uniqueHand.begin(),comparisonFunc);
+    copy(hand.begin(), hand.end(), copyHand.begin());
 
-    //Copy the full hand into a set so the set difference can be used
-    copy(hand.begin(), hand.end(), fullHand.begin());
-
-    unique(hand.begin(), hand.end());
-
-    //Find the difference between the full hand and unique hand
-    set_symmetric_difference(fullHand.begin(), fullHand.end(), uniqueHand.begin(), uniqueHand.end(), diff.begin());
-
-    /*
-     * Loop through unique hand and see if there is a run.
-     * If there is a run then check if diff contains any of the same values
-     * as the ones in the run.
-     * If so add appropriate amount of points
-     */
-
+    for(it = copyHand.begin(); it != copyHand.end(); it++)
+    {
+        if(runs.empty() || it->val == runs.top().val + 1)
+            runs.push(*it);
+        else if(it->val == runs.top().val)
+            duplicate.push_back(*it);
+    }
     return counter;
-}
-
-bool Cribbage::comparisonFunc(card i, card j)
-{
-    //FIXME: MAY HAVE A PROBLEM HERE BUT SHOULD WORK
-    return i.val == j.val;
 }
 
 int Cribbage::calcPairs(vector<card> hand)
