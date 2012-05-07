@@ -5,7 +5,6 @@
  * -Everyone throws into the kitty and a card from the deck is put in the kitty
  * -Play
  * -Reveal hand
- * -Calculate own hand and kitty
  * -Allow for human players to calculate their own score and AI can correct
  */
 
@@ -38,22 +37,19 @@ int Cribbage::calc15(vector<card> hand)
 int Cribbage::calcRuns(vector<card> hand)
 {
     int counter = 0;
-    deque<card> copyHand;
     stack<card> runs;
     vector<card> duplicate;
-    deque<card>::iterator it;
-
-    copy(hand.begin(), hand.end(), copyHand.begin()); //Not sure why I do this
+    vector<card>::iterator it;
 
     //Iterate over the hand and track potential runs
-    for(it = copyHand.begin(); it != copyHand.end(); it++)
+    for(it = hand.begin(); it != hand.end(); it++)
     {
         if(runs.empty() || it->val == runs.top().val + 1)
             runs.push(*it);
         else if(it->val == runs.top().val)
             duplicate.push_back(*it);
 
-        if(it == copyHand.end() - 1 || (it + 1)->val > runs.top().val + 1)
+        if(it == hand.end() - 1 || (it + 1)->val > runs.top().val + 1)
         {
             if(runs.size() >= 3) //Check if you have the minimum # of cards to make a run
             {
