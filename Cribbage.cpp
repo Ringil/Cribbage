@@ -43,8 +43,9 @@ int Cribbage::calcRuns(vector<card> hand)
     vector<card> duplicate;
     deque<card>::iterator it;
 
-    copy(hand.begin(), hand.end(), copyHand.begin());
+    copy(hand.begin(), hand.end(), copyHand.begin()); //Not sure why I do this
 
+    //Iterate over the hand and track potential runs
     for(it = copyHand.begin(); it != copyHand.end(); it++)
     {
         if(runs.empty() || it->val == runs.top().val + 1)
@@ -52,8 +53,18 @@ int Cribbage::calcRuns(vector<card> hand)
         else if(it->val == runs.top().val)
             duplicate.push_back(*it);
 
-        if(it == copyHand.end() - 1 || (it + 1)->val == runs.top().val)
+        if(it == copyHand.end() - 1 || (it + 1)->val > runs.top().val + 1)
         {
+            if(runs.size() >= 3) //Check if you have the minimum # of cards to make a run
+            {
+                counter += runs.size(); //Number of points for the run
+
+                if(!duplicate.empty())
+                    counter *= duplicate.size(); //Number of runs
+            }
+
+            duplicate.clear(); //Clear the duplicates
+            eraseStack(runs); //Erase the runs stack
         }
     }
     return counter;
