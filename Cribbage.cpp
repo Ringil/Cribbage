@@ -36,7 +36,7 @@ int Cribbage::calc15(vector<card> hand)
 
 int Cribbage::calcRuns(vector<card> hand)
 {
-    int counter = 0;
+    int total = 0;
     stack<card> runs;
     vector<card> duplicate;
     vector<card>::iterator it;
@@ -49,21 +49,25 @@ int Cribbage::calcRuns(vector<card> hand)
         else if(it->val == runs.top().val)
             duplicate.push_back(*it);
 
+        /* Check if you are on the last card of the hand or if the next card will break the run*/
         if(it == hand.end() - 1 || (it + 1)->val > runs.top().val + 1)
         {
             if(runs.size() >= 3) //Check if you have the minimum # of cards to make a run
             {
-                counter += runs.size(); //Number of points for the run
+                total += runs.size(); //Number of points for the run
 
                 if(!duplicate.empty())
-                    counter *= duplicate.size(); //Number of runs
-            }
+                    total *= duplicate.size(); //Number of runs
 
+                /*If you have a run you don't need to check anymore
+                cards because there can't be another run*/
+                return total; 
+            }
             duplicate.clear(); //Clear the duplicates
             eraseStack(runs); //Erase the runs stack
         }
     }
-    return counter;
+    return total;
 }
 
 int Cribbage::calcPairs(vector<card> hand)
