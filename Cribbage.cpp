@@ -31,6 +31,11 @@ int Cribbage::calcScore(vector<card> hand, card cut)
 
 int Cribbage::calc15(vector<card> hand)
 {
+    /*
+    TODO: This is a case of the subset problem which is NP-Complete.
+    Going to have to brute force this and probably use Boost threads
+    to get good performance.
+    */
     return 0;
 }
 
