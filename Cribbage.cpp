@@ -100,7 +100,7 @@ int Cribbage::calcPairs(vector<card> hand)
 void Cribbage::eraseStack(stack<card> &cards)
 {
     /*
-     * A utility function for erasing the stack
+     * A utility function for erasing a stack of card structs
      */
     while(!cards.empty())
     {
