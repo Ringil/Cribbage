@@ -35,7 +35,12 @@ int Cribbage::calc15(vector<card> hand)
     TODO: This is a case of the subset problem which is NP-Complete.
     Going to have to brute force this and probably use Boost threads
     to get good performance.
+
+    IDEA: Loop through hand and compare each card to each other card and subtract the summed
+    values from 15 then check the next one
     */
+    vector<card>::iterator it;
+
     return 0;
 }
 
