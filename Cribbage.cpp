@@ -38,6 +38,9 @@ int Cribbage::calc15(vector<card> hand)
 
     IDEA: Loop through hand and compare each card to each other card and subtract the summed
     values from 15 then check the next one
+
+    diff ways to make 15: {(7,8), (6,9), (5,10), (5,5,5), (4,5,6), (4,4,7), (4,3,8), (3,5,7), (2,5,8), (1,5,9), 
+                          (1,4,10)}
     */
     vector<card>::iterator it;
 
