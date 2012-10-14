@@ -42,7 +42,6 @@ int Cribbage::calc15(vector<card> hand)
     diff ways to make 15: {(7,8), (6,9), (5,10), (5,5,5), (4,5,6), (4,4,7), (4,3,8), (3,5,7), (2,5,8), (1,5,9), 
                           (1,4,10)}
     */
-    vector<card>::iterator it;
 
     return 0;
 }
@@ -63,6 +62,7 @@ int Cribbage::calcRuns(vector<card> hand)
             duplicate.push_back(*it);
 
         /* Check if you are on the last card of the hand or if the next card will break the run*/
+        //DO YOU EVEN NEED TO CHECK FOR THE LAST CARD CAUSE THE MAIN LOOP WILL TAKE CARE OF THAT
         if(it == hand.end() - 1 || (it + 1)->val > runs.top().val + 1)
         {
             if(runs.size() >= 3) //Check if you have the minimum # of cards to make a run
@@ -98,6 +98,7 @@ int Cribbage::calcPairs(vector<card> hand)
         }
 
         //This makes sure you calculate all the points even if the last two cards are the same.
+        //DO YOU EVEN NEED TO CHECK FOR THE LAST CARD CAUSE THE MAIN LOOP WILL TAKE CARE OF THAT
         if(it == hand.end() - 1 || (it + 1)->val != sameCards.top().val)
         {
             //Calculate amount of points from the amount of same cards ((n^2)-n)

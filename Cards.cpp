@@ -64,3 +64,19 @@ int Cards::numCardsLeft()
 {
     return deck.size();
 }
+
+/*
+Determines whether or not a subset of the int vector sums to the given target value.
+WORK NEEDS TO BE DONE TO MAKE THIS RETURN THE ACTUAL SUBSET
+*/
+bool Cards::subsetSum(vector<int> set, int target)
+{
+    //Only a 1 element list so just check if its the target val
+    if(set.size()==1)
+        return (set.at(0)==target);
+
+    //Create a subset of all vals except the first one
+    vector<int> subSet (set.begin()+1,set.end());
+
+    return (subsetSum(subSet, target) || subsetSum(subSet, target-set.at(0)));
+}

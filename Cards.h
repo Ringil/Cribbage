@@ -34,5 +34,6 @@ public:
     void printDeck(); //TODO: TO BE REMOVED
     int numCardsLeft(); //Number of cards left in the deck
     void deal(vector<card> &hand); //Deal a single card
+    bool subsetSum(vector<int> set, int target); //Determine if a subset of the cards add to a target val
 };
 #endif
