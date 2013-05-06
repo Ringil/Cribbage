@@ -88,7 +88,7 @@ int Cribbage::calcRuns(vector<card> hand) //3 5 6 7 7
     return total;
 }
 
-int Cribbage::calcPairs(vector<card> hand) //NEED TO CHECK CASE WHEN PAIR IS AT THE END OF HAND
+int Cribbage::calcPairs(vector<card> hand) //NEED TO CHECK CASE WHEN PAIR IS AT THE END OF HAND 24588
 {
     stack<card> sameCards;
     vector<card>::iterator it;
@@ -103,7 +103,7 @@ int Cribbage::calcPairs(vector<card> hand) //NEED TO CHECK CASE WHEN PAIR IS AT 
         }
 
         //This makes sure you calculate all the points even if the last two cards are the same.
-        if((it != hand.end() - 1) && (it + 1)->val != sameCards.top().val)
+        if((it == hand.end() - 1) || (it + 1)->val != sameCards.top().val)
         {
             /*
             Calculate amount of points from the amount of same cards ((n^2)-n)
