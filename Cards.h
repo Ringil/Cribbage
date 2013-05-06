@@ -27,12 +27,12 @@ struct card
 class Cards
 {
 protected:    
-    vector<card> deck;
+    vector<card> deck; //I think you're not supposed to use protected variables as a coding standard
 public:
     Cards(); //Default Constructor 
     void shuffle(); //Shuffle the deck (Currently does not shuffle very well)
     void printDeck(); //TODO: TO BE REMOVED
-    int numCardsLeft(); //Number of cards left in the deck
+    int  numCardsLeft(); //Number of cards left in the deck
     void deal(vector<card> &hand); //Deal a single card
     bool subsetSum(vector<int> set, int target); //Determine if a subset of the cards add to a target val
 };

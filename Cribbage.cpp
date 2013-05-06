@@ -46,44 +46,49 @@ int Cribbage::calc15(vector<card> hand)
     return 0;
 }
 
-int Cribbage::calcRuns(vector<card> hand)
+int Cribbage::calcRuns(vector<card> hand) //3 5 6 7 7
 {
     int total = 0;
+    int duplicate = 0;
     stack<card> runs;
-    vector<card> duplicate;
     vector<card>::iterator it;
 
     //Iterate over the hand and track potential runs
     for(it = hand.begin(); it != hand.end(); it++)
     {
+        /*
+        NEED TO FIND OUT IF ACES ARE USED IN HIGH CARD RUNS BECAUSE THIS DOES NOT ACCOUNT FOR IT
+        */
         if(runs.empty() || it->val == runs.top().val + 1)
-            runs.push(*it);
-        else if(it->val == runs.top().val)
-            duplicate.push_back(*it);
-
-        /* Check if you are on the last card of the hand or if the next card will break the run*/
-        //DO YOU EVEN NEED TO CHECK FOR THE LAST CARD CAUSE THE MAIN LOOP WILL TAKE CARE OF THAT
-        if(it == hand.end() - 1 || (it + 1)->val > runs.top().val + 1)
         {
-            if(runs.size() >= 3) //Check if you have the minimum # of cards to make a run
+            runs.push(*it);
+        }
+        else if(it->val == runs.top().val)
+        {
+            duplicate++;
+        }
+
+        /* Check if the next card will break the run or or its the last card in the hand*/
+        if((it == hand.end() - 1) || (it + 1)->val > runs.top().val + 1)
+        {
+            if(runs.size() >= 3) //Check minimum size for a run
             {
                 total += runs.size(); //Number of points for the run
 
-                if(!duplicate.empty())
-                    total *= duplicate.size(); //Number of runs
-
-                /*If you have a run you don't need to check anymore
-                cards because there can't be another run*/
-                return total; 
+                if(duplicate > 0)
+                {
+                    total += (int) (pow((double) runs.size(), (double) duplicate) + runs.size());
+                }
             }
-            duplicate.clear(); //Clear the duplicates
-            eraseStack(runs); //Erase the runs stack
+
+            duplicate = 0;
+            eraseStack(runs);
         }
     }
     return total;
 }
 
-int Cribbage::calcPairs(vector<card> hand)
+int Cribbage::calcPairs(vector<card> hand) //NEED TO CHECK CASE WHEN PAIR IS AT THE END OF HAND
 {
     stack<card> sameCards;
     vector<card>::iterator it;
@@ -98,10 +103,12 @@ int Cribbage::calcPairs(vector<card> hand)
         }
 
         //This makes sure you calculate all the points even if the last two cards are the same.
-        //DO YOU EVEN NEED TO CHECK FOR THE LAST CARD CAUSE THE MAIN LOOP WILL TAKE CARE OF THAT
-        if(it == hand.end() - 1 || (it + 1)->val != sameCards.top().val)
+        if((it != hand.end() - 1) && (it + 1)->val != sameCards.top().val)
         {
-            //Calculate amount of points from the amount of same cards ((n^2)-n)
+            /*
+            Calculate amount of points from the amount of same cards ((n^2)-n)
+            TODO: Could probably just do the squaring with a bit shift instead of the weird conversions to use pow
+            */
             total += (int) (pow((double) sameCards.size(), 2) - sameCards.size());
 
             //Remove all cards from the stack
@@ -124,10 +131,6 @@ void Cribbage::eraseStack(stack<card> &cards)
 
 int Cribbage::calcRightJack(vector<card> hand, card cut)
 {
-    /*
-     * TODO: Take care of all Jack situations currently only takes care of
-     * if you have a jack that is the same suit as the cut card
-     */
     vector<card>::iterator it;
 
     //Check if you have a jack in your hand and if the cut card is the same suit
@@ -143,15 +146,17 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2)
 {
     vector<card>::iterator it = deck.end() - 1; //Top of the deck
 
-    if(this->numCardsLeft() >= 12)
+    if(this->numCardsLeft() >= 14)
     {
         //Deal 6 cards to each hand
         for(int i = 0; i < 6; i++)
         {
             hand1.push_back(*it); //Deal the card
+            it--;
             deck.pop_back();
 
             hand2.push_back(*it); //Deal the card
+            it--;
             deck.pop_back();
         }
     }
@@ -163,18 +168,21 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand
 {
     vector<card>::iterator it = deck.end() - 1; //Top of the deck
 
-    if(this->numCardsLeft() >= 15)
+    if(this->numCardsLeft() >= 17)
     {
         //Deal 5 cards to each player
         for(int i = 0; i < 5; i++)
         {
             hand1.push_back(*it); //Deal the card
+            it--;
             deck.pop_back();
 
             hand2.push_back(*it); //Deal the card
+            it--;
             deck.pop_back();
 
             hand3.push_back(*it); //Deal the card
+            it--;
             deck.pop_back();
         }
     }
@@ -184,16 +192,17 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand
 
 card Cribbage::cutDeck()
 {
+    // TODO give 2 points to the dealer if a jack is cut
     int max = this->numCardsLeft() - 1; //-1 because boost::uid uses a closed range
     int index = 0;
     card cut;
     mt19937 gen;
     uniform_int_distribution<> dist(0, max); //A closed range
 
-    index = dist(gen);
+    index = dist(gen); //Choose the cut card index
     cut.suit = deck.at(index).suit;
     cut.val = deck.at(index).val;
-    deck.erase(deck.begin() + index - 1);
+    deck.erase(deck.begin() + index - 1); //Remove the cut card from the deck
 
     return cut;
 }

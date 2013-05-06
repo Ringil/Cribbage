@@ -13,5 +13,5 @@ Cards.o: Cards.cpp
 	g++ -c Cards.cpp
 
 clean:
-	rm -rf *.o Cribbage
+	rm -rf Cribbage
 

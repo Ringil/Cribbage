@@ -31,7 +31,7 @@ void Cards::shuffle()
 void Cards::printDeck()
 {
     vector<card>::iterator vit;
-    for (vit=deck.begin(); vit!=deck.end(); ++vit)
+    for (vit = deck.begin(); vit != deck.end(); ++vit)
     {
         if(vit->val == 11)
             cout<<"J";
@@ -47,6 +47,9 @@ void Cards::printDeck()
     }
 }
 
+/*
+Deal a single card
+*/
 void Cards::deal(vector<card> &hand)
 {    
     vector<card>::iterator it = deck.end()-1; //Top of the deck

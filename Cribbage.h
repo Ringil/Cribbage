@@ -16,18 +16,17 @@ using namespace boost::random;
 class Cribbage : public Cards
 {
 private:
-	int numHumans;
-	int numAI;
-	int calc15(vector<card> hand);
-	int calcRuns(vector<card> hand);
-	int calcPairs(vector<card> hand);
-	int calcRightJack(vector<card> hand, card cut);
-	bool comparisonFunc(card i, card j);
+	int  numHumans;
+	int  numAI;
 	void eraseStack(stack<card> &sameCards);
 
 public:
 	Cribbage(int numHumans, int numAI);
-    int calcScore(vector<card> hand, card cut);
+	int  calc15(vector<card> hand);
+	int  calcRuns(vector<card> hand);	
+	int  calcPairs(vector<card> hand);
+	int  calcRightJack(vector<card> hand, card cut);
+    int  calcScore(vector<card> hand, card cut);
 	void deal(vector<card> &hand1, vector<card> &hand2); //Deal 6 cards to 2 hands
 	void deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand3); //Deal 5 cards to 3 hands
     card cutDeck(); //Choose and remove the cut card from the deck
