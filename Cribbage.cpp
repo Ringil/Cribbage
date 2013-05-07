@@ -1,12 +1,4 @@
 #include "Cribbage.h"
-/*
- * -Randomly choose first player and make sure turns are taken clockwise
- * -Deal cards based on that number
- * -Everyone throws into the kitty and a card from the deck is put in the kitty
- * -Play
- * -Reveal hand
- * -Allow for human players to calculate their own score and AI can correct
- */
 
 Cribbage::Cribbage(int numHumans, int numAI)
 {
@@ -14,17 +6,17 @@ Cribbage::Cribbage(int numHumans, int numAI)
     this->numAI = numAI;
 }
 
-int Cribbage::calcScore(vector<card> hand, card cut)
+int Cribbage::calcScore(vector<card> hand, card cut, bool crib)
 {
     int total = 0;
 
     total = calcRightJack(hand, cut);
 
-    hand.push_back(cut); //Combine the cut with your hand
-    sort(hand.begin(), hand.end()); //Sort cards by val
+    hand.push_back(cut);
+    sort(hand.begin(), hand.end()); //Sort card structs by val
 
     //Calculate rest of the points
-    total += calc15(hand) + calcRuns(hand) + calcPairs(hand);
+    total += calc15(hand) + calcRuns(hand) + calcPairs(hand) + calcFlush(hand, crib);
 
     return total;
 }
@@ -46,14 +38,56 @@ int Cribbage::calc15(vector<card> hand)
     return 0;
 }
 
-int Cribbage::calcRuns(vector<card> hand) //3 5 6 7 7
+int Cribbage::calcFlush(vector<card> hand, bool crib)
+{
+    int total = 0;
+    int numSuits[4] = {0,0,0,0};
+    vector<card>::iterator it;
+
+    for(it = hand.begin(); it != hand.end(); it++)
+    {
+        if(it->suit == 'C')
+            numSuits[0]++;
+        else if(it->suit == 'H')
+            numSuits[1]++;
+        else if(it->suit == 'D')
+            numSuits[2]++;
+        else if(it->suit == 'S')
+            numSuits[3]++;
+        else
+        {
+            cout<<it->suit<<" is not a real suit.\n Exiting program!\n";
+            exit(0);
+        }
+    }
+
+    /*
+    Check each suit for a 4 card flush or higher when it isn't a crib hand.
+    Need all as the same suit when it is a crib.
+    */
+    for(int i = 0; i<=3; i++)
+    {
+        if(crib == false && numSuits[i] >= 4)
+        {
+            total = numSuits[i];
+            break;
+        }
+        else if(crib == true && numSuits[i] == 5)
+        {
+            total = 5;
+            break;
+        }
+    }
+    return total;
+}
+
+int Cribbage::calcRuns(vector<card> hand)
 {
     int total = 0;
     int duplicate = 0;
     stack<card> runs;
     vector<card>::iterator it;
 
-    //Iterate over the hand and track potential runs
     for(it = hand.begin(); it != hand.end(); it++)
     {
         /*
@@ -68,17 +102,18 @@ int Cribbage::calcRuns(vector<card> hand) //3 5 6 7 7
             duplicate++;
         }
 
-        /* Check if the next card will break the run or or its the last card in the hand*/
+        /* 
+        Check if the next card will break the run or if it is the last 
+        card in the hand.
+        */
         if((it == hand.end() - 1) || (it + 1)->val > runs.top().val + 1)
         {
-            if(runs.size() >= 3) //Check minimum size for a run
+            if(runs.size() >= 3) //Minimum size for a run
             {
-                total += runs.size(); //Number of points for the run
-
                 if(duplicate > 0)
-                {
-                    total += (int) (pow((double) runs.size(), (double) duplicate) + runs.size());
-                }
+                    total = (int) (pow((double) runs.size(), (double) duplicate) + runs.size());
+                else
+                    total = runs.size();
             }
 
             duplicate = 0;
@@ -88,7 +123,7 @@ int Cribbage::calcRuns(vector<card> hand) //3 5 6 7 7
     return total;
 }
 
-int Cribbage::calcPairs(vector<card> hand) //NEED TO CHECK CASE WHEN PAIR IS AT THE END OF HAND 24588
+int Cribbage::calcPairs(vector<card> hand)
 {
     stack<card> sameCards;
     vector<card>::iterator it;
@@ -107,11 +142,9 @@ int Cribbage::calcPairs(vector<card> hand) //NEED TO CHECK CASE WHEN PAIR IS AT 
         {
             /*
             Calculate amount of points from the amount of same cards ((n^2)-n)
-            TODO: Could probably just do the squaring with a bit shift instead of the weird conversions to use pow
             */
-            total += (int) (pow((double) sameCards.size(), 2) - sameCards.size());
-
-            //Remove all cards from the stack
+            total += (sameCards.size() * sameCards.size()) - sameCards.size();
+            
             eraseStack(sameCards);
         }
     }

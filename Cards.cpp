@@ -2,6 +2,7 @@
 
 Cards::Cards()
 {
+    //Generate a deck of cards
     card cardz;
     for(int i = 1; i<=13;  i++)
     {
@@ -23,8 +24,7 @@ Cards::Cards()
 
 void Cards::shuffle()
 {
-    //TODO: Redo this later using boost to randomize the cards
-    srand(unsigned(time(NULL)));
+    srand(unsigned(time(0)));
     random_shuffle(deck.begin(), deck.end());
 }
 
@@ -79,7 +79,7 @@ bool Cards::subsetSum(vector<int> set, int target)
         return (set.at(0)==target);
 
     //Create a subset of all vals except the first one
-    vector<int> subSet (set.begin()+1,set.end());
+    vector<int> subSet(set.begin()+1,set.end());
 
     return (subsetSum(subSet, target) || subsetSum(subSet, target-set.at(0)));
 }
