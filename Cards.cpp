@@ -1,7 +1,7 @@
 #include "Cards.h"
 
 Cards::Cards()
-{
+{    
     //Generate a deck of cards
     card cardz;
     for(int i = 1; i<=13;  i++)
@@ -68,18 +68,13 @@ int Cards::numCardsLeft()
     return deck.size();
 }
 
-/*
-Determines whether or not a subset of the int vector sums to the given target value.
-WORK NEEDS TO BE DONE TO MAKE THIS RETURN THE ACTUAL SUBSET
-*/
-bool Cards::subsetSum(vector<int> set, int target)
+void Cards::eraseStack(stack<card> &cards)
 {
-    //Only a 1 element list so just check if its the target val
-    if(set.size()==1)
-        return (set.at(0)==target);
-
-    //Create a subset of all vals except the first one
-    vector<int> subSet(set.begin()+1,set.end());
-
-    return (subsetSum(subSet, target) || subsetSum(subSet, target-set.at(0)));
+    /*
+     * A utility function for erasing a stack of card structs
+     */
+    while(!cards.empty())
+    {
+        cards.pop();
+    }
 }

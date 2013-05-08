@@ -3,84 +3,41 @@ using namespace std;
 
 #include "Cribbage.h"
 
-bool yesNo();
 void printHand(vector<card> hand);
 
 int main()
 {
-    //int numHumans, numAI;
+    int numHumans = 2, numAI = 0;
 
     //TEST CODE
-    Cribbage game(1, 1);
-    vector<card> hand1, hand2, hand3, tHand;
+    Cribbage game(numHumans, numAI);
+    vector<card> tHand;
     card test;
+    bool crib = false;
+    bool verbose = true;
 
-    //Test hand, change this so its just user input for later
+    //Test hand
     test.suit = 'H';
-    test.val = 1;
-    tHand.push_back(test);
-    test.val = 4;
-    tHand.push_back(test);
-    test.val = 5;
-    tHand.push_back(test);
-    test.val = 5;
+    test.val = 11; //Jack, will be converted to a 10 when calc'ing pts
     tHand.push_back(test);
     test.suit = 'C';
     test.val = 5;
     tHand.push_back(test);
-
-
-    game.shuffle();
-    //game.printDeck();
-    game.deal(hand1,hand2,hand3);
-    sort(hand1.begin(), hand1.end());
-    sort(hand2.begin(), hand2.end());
-    sort(hand3.begin(), hand3.end());
+    test.suit = 'D';
+    test.val = 3;
+    tHand.push_back(test);
+    test.suit = 'H';
+    test.val = 3;
+    tHand.push_back(test);
     
-    cout<<"Hand1:\n";
-    printHand(hand1);
-    cout<<"Points for flush: "<< game.calcFlush(hand1, false)<<endl;
-    cout<<"Points for pairs: "<< game.calcPairs(hand1) << endl;
-    cout<<"Points for runs: "<< game.calcRuns(hand1) << endl<<endl;
-
-    cout<<"Hand2:\n";
-    printHand(hand2);
-    cout<<"Points for flush: "<< game.calcFlush(hand2, false)<<endl;
-    cout<<"Points for pairs: "<< game.calcPairs(hand2) << endl;
-    cout<<"Points for runs: "<< game.calcRuns(hand2) << endl<<endl;
-
-    cout<<"Hand3:\n";
-    printHand(hand3);
-    cout<<"Points for flush: "<< game.calcFlush(hand3, false)<<endl;
-    cout<<"Points for pairs: "<< game.calcPairs(hand3) << endl;
-    cout<<"Points for runs: "<< game.calcRuns(hand3) << endl<<endl;
+    //Cut card
+    test.suit = 'H';
+    test.val = 2;
 
     cout<<"Test Hand:\n";
     printHand(tHand);
-    cout<<"Points for flush: "<< game.calcFlush(tHand, false)<<endl;
-    cout<<"Points for pairs: "<< game.calcPairs(tHand) << endl;
-    cout<<"Points for runs: "<< game.calcRuns(tHand) << endl<<endl;
-
-
-    //cout << endl << game.numCardsLeft() << endl;
-}
-
-bool yesNo()
-{
-    //TODO:Make this work so just pressing enter acts as yes
-    char response;
-    cout << "Would you like to play again? [Y/n]: ";
-    cin >> response;
-    switch(response)
-    {
-        case 'n':
-        case 'N':
-            return false;
-        case 'Y':
-        case 'y':
-        default:
-            return true;
-    }
+    cout<<"Test cut card:\n"<<test.val<<test.suit<<endl;
+    cout<<"Total points for hand: "<<game.calcScore(tHand, test, crib, verbose)<<endl;
 }
 
 void printHand(vector<card> hand)

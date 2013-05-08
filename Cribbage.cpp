@@ -4,38 +4,80 @@ Cribbage::Cribbage(int numHumans, int numAI)
 {
     this->numHumans = numHumans;
     this->numAI = numAI;
+    numFifteens = 0;
 }
 
-int Cribbage::calcScore(vector<card> hand, card cut, bool crib)
+int Cribbage::calcScore(vector<card> hand, card cut, bool crib, bool verbose)
 {
     int total = 0;
 
     total = calcRightJack(hand, cut);
 
+    if(verbose)
+    {
+        cout<<"Points for right jack: " << total << endl;
+    }
+
     hand.push_back(cut);
     sort(hand.begin(), hand.end()); //Sort card structs by val
 
+    //Think about moving verbosity to the seperate calc funcs
+    if(verbose)
+    {
+        cout<<"Points for 15's: "<<calcFifteen(hand)<<"\nPoints for runs: "<<calcRuns(hand)<<"\nPoints "
+            <<"for pairs: "<<calcPairs(hand)<<"\nPoints for flushes: "<<calcFlush(hand, crib)<<endl;
+    }
+    
     //Calculate rest of the points
-    total += calc15(hand) + calcRuns(hand) + calcPairs(hand) + calcFlush(hand, crib);
+    total +=  calcRuns(hand) + calcPairs(hand) + calcFlush(hand, crib) + calcFifteen(hand);
 
     return total;
 }
 
-int Cribbage::calc15(vector<card> hand)
+int Cribbage::calcFifteen(vector<card> hand)
 {
-    /*
-    TODO: This is a case of the subset problem which is NP-Complete.
-    Going to have to brute force this and probably use Boost threads
-    to get good performance.
+    int target = 15;
+    vector<card> partial;
 
-    IDEA: Loop through hand and compare each card to each other card and subtract the summed
-    values from 15 then check the next one
+    numFifteens = 0;
+    subSetSum(hand, target, partial);
+    numFifteens = numFifteens*2; //Set the actual amount of points you get from fifteens
+    
+    return numFifteens; 
+}
 
-    diff ways to make 15: {(7,8), (6,9), (5,10), (5,5,5), (4,5,6), (4,4,7), (4,3,8), (3,5,7), (2,5,8), (1,5,9), 
-                          (1,4,10)}
-    */
+void Cribbage::subSetSum(vector<card> hand, int target, vector<card> partial)
+{
+    int s = 0;
 
-    return 0;
+    for(vector<card>::iterator it = partial.begin(); it != partial.end(); it++)
+    {
+        if(it->val > 10) //Takes care of face cards being >10
+            s+=10;
+        else
+            s += it->val;
+    }
+
+    if(s == target)
+    {
+        numFifteens++;
+    }
+
+    if(s >= target)
+        return;
+
+    for(vector<card>::iterator it = hand.begin(); it != hand.end(); it++)
+    {
+        vector<card> remaining (it+1, hand.end());
+        vector<card> partialRec (partial);
+        card pCard;
+
+        pCard.suit = it->suit;
+        pCard.val = it->val;
+        partialRec.push_back(pCard);
+
+        subSetSum(remaining, target, partialRec);
+    }
 }
 
 int Cribbage::calcFlush(vector<card> hand, bool crib)
@@ -70,14 +112,15 @@ int Cribbage::calcFlush(vector<card> hand, bool crib)
         if(crib == false && numSuits[i] >= 4)
         {
             total = numSuits[i];
-            break;
+            return total;
         }
         else if(crib == true && numSuits[i] == 5)
         {
             total = 5;
-            break;
+            return total;
         }
     }
+
     return total;
 }
 
@@ -91,7 +134,7 @@ int Cribbage::calcRuns(vector<card> hand)
     for(it = hand.begin(); it != hand.end(); it++)
     {
         /*
-        NEED TO FIND OUT IF ACES ARE USED IN HIGH CARD RUNS BECAUSE THIS DOES NOT ACCOUNT FOR IT
+        Does not account for run using ace after the king 
         */
         if(runs.empty() || it->val == runs.top().val + 1)
         {
@@ -120,6 +163,7 @@ int Cribbage::calcRuns(vector<card> hand)
             eraseStack(runs);
         }
     }
+
     return total;
 }
 
@@ -148,18 +192,8 @@ int Cribbage::calcPairs(vector<card> hand)
             eraseStack(sameCards);
         }
     }
-    return total;
-}
 
-void Cribbage::eraseStack(stack<card> &cards)
-{
-    /*
-     * A utility function for erasing a stack of card structs
-     */
-    while(!cards.empty())
-    {
-        cards.pop();
-    }
+    return total;
 }
 
 int Cribbage::calcRightJack(vector<card> hand, card cut)
@@ -169,7 +203,7 @@ int Cribbage::calcRightJack(vector<card> hand, card cut)
     //Check if you have a jack in your hand and if the cut card is the same suit
     for(it = hand.begin(); it != hand.end(); it++)
     {
-        if(it->val == 11 && strcmp((const char*) it->suit, (const char *) cut.suit) == 0)
+        if(it->val == 11 && (it->suit == cut.suit))
             return 1;
     }
     return 0;
@@ -186,7 +220,7 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2)
         {
             hand1.push_back(*it); //Deal the card
             it--;
-            deck.pop_back();
+            deck.pop_back(); //Needed so numCardsLeft gives right value
 
             hand2.push_back(*it); //Deal the card
             it--;
@@ -208,7 +242,7 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand
         {
             hand1.push_back(*it); //Deal the card
             it--;
-            deck.pop_back();
+            deck.pop_back();      //Needed so numCardsLeft gives right value
 
             hand2.push_back(*it); //Deal the card
             it--;
@@ -225,7 +259,6 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand
 
 card Cribbage::cutDeck()
 {
-    // TODO give 2 points to the dealer if a jack is cut
     int max = this->numCardsLeft() - 1; //-1 because boost::uid uses a closed range
     int index = 0;
     card cut;

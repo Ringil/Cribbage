@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include <functional>
+#include <stack>
 #include <ctime>
 #include <cstdlib>
 using namespace std;
@@ -26,12 +27,12 @@ class Cards
 {
 protected:    
     int  numCardsLeft(); //Number of cards left in the deck
+    void eraseStack(stack<card> &cards);
     vector<card> deck;
 public:
     Cards();
     void shuffle(); //Shuffle the deck (Currently does not shuffle very well)
     void printDeck(); //TODO: REMOVE THIS AFTER TESTING IS DONE
     virtual void deal(vector<card> &hand); //Deal a single card
-    bool subsetSum(vector<int> set, int target); //Determine if a subset of the cards add to a target val
 };
 #endif
