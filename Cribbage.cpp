@@ -262,7 +262,7 @@ card Cribbage::cutDeck()
     int max = this->numCardsLeft() - 1; //-1 because boost::uid uses a closed range
     int index = 0;
     card cut;
-    mt19937 gen;
+    mt19937 gen(time(0));
     uniform_int_distribution<> dist(0, max); //A closed range
 
     index = dist(gen); //Choose the cut card index
