@@ -1,17 +1,21 @@
+#using -std=c++11 causes compile probs with boost
+CC = g++ -ggdb
+
 all: Cribbage
 
 Cribbage: game.o Cribbage.o Cards.o
-	g++ game.o Cribbage.o Cards.o -o Cribbage
+	$(CC) -o $@ $^
 
 game.o: game.cpp
-	g++ -c game.cpp
+	$(CC) -c $<
 
 Cribbage.o: Cribbage.cpp
-	g++ -c Cribbage.cpp
+	$(CC) -c $<
 
 Cards.o: Cards.cpp
-	g++ -c Cards.cpp
+	$(CC) -c $<
+
+.PHONY: clean
 
 clean:
-	rm -rf *.o Cribbage
-
+	rm *.o Cribbage

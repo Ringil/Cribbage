@@ -15,8 +15,10 @@ int main()
     card test;
     card cut;
     bool crib = false;
-    bool verbose = true;
 
+    //Turn on verbose score counting
+    game.verbose = true;
+    
     //Test hand
     test.suit = 'H';
     test.val = 11; //Jack, will be converted to a 10 when calc'ing pts
@@ -37,21 +39,21 @@ int main()
     cout<<"Test Hand:\n";
     printHand(tHand);
     cout<<"Test cut card:\n"<<cut.val<<cut.suit<<endl;
-    cout<<"Total points for tHand: "<<game.calcScore(tHand, cut, crib, verbose)<<endl;
+    cout<<"Total points for tHand: "<<game.calcScore(tHand, cut, crib)<<endl;
 
     game.shuffle();
     game.deal(hand1,hand2,hand3);
     printHand(hand1);
     cout<<"Test cut card:\n"<<cut.val<<cut.suit<<endl;
-    cout<<"Total points for hand1: "<<game.calcScore(hand1, cut, crib, verbose)<<endl<<endl;
+    cout<<"Total points for hand1: "<<game.calcScore(hand1, cut, crib)<<endl<<endl;
     
     printHand(hand2); 
     cout<<"Test cut card:\n"<<cut.val<<cut.suit<<endl;
-    cout<<"Total points for hand2: "<<game.calcScore(hand2, cut, crib, verbose)<<endl<<endl;
+    cout<<"Total points for hand2: "<<game.calcScore(hand2, cut, crib)<<endl<<endl;
     
     printHand(hand3); 
     cout<<"Test cut card:\n"<<cut.val<<cut.suit<<endl;   
-    cout<<"Total points for hand3: "<<game.calcScore(hand3, cut, crib, verbose)<<endl<<endl;
+    cout<<"Total points for hand3: "<<game.calcScore(hand3, cut, crib)<<endl<<endl;
 
 
 }

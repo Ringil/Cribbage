@@ -27,7 +27,12 @@ private:
 public:
 	Cribbage(int numHumans, int numAI);
 	card cutDeck(); //Choose and remove the cut card from the deck
+<<<<<<< HEAD
     int  calcScore(vector<card> hand, card cut, bool crib, bool verbose = false);
+=======
+	bool verbose; //Change to "bool verbose = false;" if compiling w/ a c++11 compiler
+    int  calcScore(vector<card> hand, card cut, bool crib);
+>>>>>>> moved verboseness into seperate calc funcs
 	virtual void deal(vector<card> &hand1, vector<card> &hand2); //Deal 6 cards to 2 hands
 	virtual void deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand3); //Deal 5 cards to 3 hands
 	using Cards::deal;

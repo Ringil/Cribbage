@@ -1,32 +1,21 @@
 #include "Cribbage.h"
 
-Cribbage::Cribbage(int numHumans, int numAI)
+Cribbage::Cribbage(int numHumans, int numAI) 
+    : verbose(false) 
 {
     this->numHumans = numHumans;
     this->numAI = numAI;
     numFifteens = 0;
 }
 
-int Cribbage::calcScore(vector<card> hand, card cut, bool crib, bool verbose)
+int Cribbage::calcScore(vector<card> hand, card cut, bool crib)
 {
     int total = 0;
 
     total = calcRightJack(hand, cut);
 
-    if(verbose)
-    {
-        cout<<"Points for right jack: " << total << endl;
-    }
-
     hand.push_back(cut);
     sort(hand.begin(), hand.end()); //Sort card structs by val
-
-    //Think about moving verbosity to the seperate calc funcs
-    if(verbose)
-    {
-        cout<<"Points for 15's: "<<calcFifteen(hand)<<"\nPoints for runs: "<<calcRuns(hand)<<"\nPoints "
-            <<"for pairs: "<<calcPairs(hand)<<"\nPoints for flushes: "<<calcFlush(hand, crib)<<endl;
-    }
     
     //Calculate rest of the points
     total +=  calcRuns(hand) + calcPairs(hand) + calcFlush(hand, crib) + calcFifteen(hand);
@@ -43,6 +32,9 @@ int Cribbage::calcFifteen(vector<card> hand)
     subSetSum(hand, target, partial);
     numFifteens = numFifteens*2; //Set the actual amount of points you get from fifteens
     
+    if(verbose)
+        cout<<"Points for 15's: "<<numFifteens<<endl;
+
     return numFifteens; 
 }
 
@@ -53,7 +45,7 @@ void Cribbage::subSetSum(vector<card> hand, int target, vector<card> partial)
     for(vector<card>::iterator it = partial.begin(); it != partial.end(); it++)
     {
         if(it->val > 10) //Takes care of face cards being >10
-            s+=10;
+            s += 10;
         else
             s += it->val;
     }
@@ -112,14 +104,25 @@ int Cribbage::calcFlush(vector<card> hand, bool crib)
         if(crib == false && numSuits[i] >= 4)
         {
             total = numSuits[i];
+
+            if(verbose)
+                cout<<"Points for flushes: "<<total<<endl;
+            
             return total;
         }
         else if(crib == true && numSuits[i] == 5)
         {
             total = 5;
+            
+            if(verbose)
+                cout<<"Points for flushes: "<<total<<endl;
+
             return total;
         }
     }
+
+    if(verbose)
+        cout<<"Points for flushes: "<<total<<endl;
 
     return total;
 }
@@ -164,6 +167,9 @@ int Cribbage::calcRuns(vector<card> hand)
         }
     }
 
+    if(verbose)
+        cout<<"Points for runs: "<<total<<endl;
+
     return total;
 }
 
@@ -192,7 +198,10 @@ int Cribbage::calcPairs(vector<card> hand)
             eraseStack(sameCards);
         }
     }
-
+ 
+    if(verbose)
+        cout<<"Points for pairs: "<<total<<endl;
+ 
     return total;
 }
 
@@ -204,7 +213,18 @@ int Cribbage::calcRightJack(vector<card> hand, card cut)
     for(it = hand.begin(); it != hand.end(); it++)
     {
         if(it->val == 11 && (it->suit == cut.suit))
-            return 1;
+        {
+            if(verbose)
+            {
+                cout<<"Points for the right jack: 1\n";
+            }
+            return 1;            
+        }
+    }
+
+    if(verbose)
+    {
+        cout<<"Points for the right jack: 0\n";
     }
     return 0;
 }
