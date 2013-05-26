@@ -28,8 +28,8 @@ public:
 	Cribbage(int numHumans, int numAI);
 	card cutDeck(); //Choose and remove the cut card from the deck
     int  calcScore(vector<card> hand, card cut, bool crib, bool verbose = false);
-	void deal(vector<card> &hand1, vector<card> &hand2); //Deal 6 cards to 2 hands
-	void deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand3); //Deal 5 cards to 3 hands
+	virtual void deal(vector<card> &hand1, vector<card> &hand2); //Deal 6 cards to 2 hands
+	virtual void deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand3); //Deal 5 cards to 3 hands
 	using Cards::deal;
 };
 #endif
