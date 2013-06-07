@@ -1,5 +1,5 @@
 #using -std=c++11 causes compile probs with boost
-CC = g++ -ggdb
+CC = g++ - Wall -ggdb
 
 all: Cribbage
 
