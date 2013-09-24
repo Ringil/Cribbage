@@ -65,7 +65,8 @@ void Cribbage::subSetSum(vector<card> hand, int target, vector<card> partial)
         numFifteens += 2;
     }
 
-    if(s >= target)
+    
+    if(s > target)
         return;
 
     for(vector<card>::iterator it = hand.begin(); it != hand.end(); it++)
@@ -78,7 +79,7 @@ void Cribbage::subSetSum(vector<card> hand, int target, vector<card> partial)
         pCard.val = it->val;
         partialRec.push_back(pCard);
 
-        subSetSum(remaining, target, partialRec);
+       subSetSum(remaining, target, partialRec);
     }
 }
 
@@ -292,7 +293,7 @@ card Cribbage::cutDeck()
     int max = this->numCardsLeft() - 1; //-1 because boost::uid uses a closed range
     int index = 0;
     card cut;
-    mt19937 gen(time(0));
+    mt19937 gen(int(time(0))); //I think this has to be unsigned
     uniform_int_distribution<> dist(0, max); //A closed range
 
     index = dist(gen); //Choose the cut card index
