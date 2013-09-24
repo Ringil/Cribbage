@@ -8,6 +8,15 @@ Cribbage::Cribbage(int numHumans, int numAI)
     numFifteens = 0;
 }
 
+void Cribbage::printCardVec(vector<card> vec)
+{
+    for(vector<card>::iterator it = vec.begin(); it != vec.end(); it++)
+    {
+        cout<<it->val<<it->suit<<endl;
+    }
+    cout<<endl;
+}
+
 int Cribbage::calcScore(vector<card> hand, card cut, bool crib)
 {
     int total = 0;
@@ -30,14 +39,15 @@ int Cribbage::calcFifteen(vector<card> hand)
 
     numFifteens = 0;
     subSetSum(hand, target, partial);
-    numFifteens = numFifteens*2; //Set the actual amount of points you get from fifteens
+    //numFifteens = numFifteens*2; //Set the actual amount of points you get from fifteens
     
     if(verbose)
         cout<<"Points for 15's: "<<numFifteens<<endl;
 
-    return numFifteens; 
+    return numFifteens;
 }
 
+//TODO: MOVE THIS TO CARDS.CPP BECAUSE ITS FAIRLY GENERAL AND COULD BE USED FOR OTHER GAMES
 void Cribbage::subSetSum(vector<card> hand, int target, vector<card> partial)
 {
     int s = 0;
@@ -52,7 +62,7 @@ void Cribbage::subSetSum(vector<card> hand, int target, vector<card> partial)
 
     if(s == target)
     {
-        numFifteens++;
+        numFifteens += 2;
     }
 
     if(s >= target)

@@ -27,10 +27,10 @@ int main()
     test.val = 5;
     tHand.push_back(test);
     test.suit = 'D';
-    test.val = 3;
+    test.val = 5;
     tHand.push_back(test);
     test.suit = 'H';
-    test.val = 3;
+    test.val = 5;
     tHand.push_back(test);
     
     //Cut card
@@ -43,7 +43,8 @@ int main()
 
     game.shuffle();
     game.deal(hand1,hand2,hand3);
-    printHand(hand1);
+    
+    /*printHand(hand1);
     cout<<"Test cut card:\n"<<cut.val<<cut.suit<<endl;
     cout<<"Total points for hand1: "<<game.calcScore(hand1, cut, crib)<<endl<<endl;
     
@@ -54,7 +55,7 @@ int main()
     printHand(hand3); 
     cout<<"Test cut card:\n"<<cut.val<<cut.suit<<endl;   
     cout<<"Total points for hand3: "<<game.calcScore(hand3, cut, crib)<<endl<<endl;
-
+*/
 
 }
 
