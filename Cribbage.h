@@ -17,7 +17,7 @@ private:
 	int  calcRuns(vector<card> hand);	
 	int  calcPairs(vector<card> hand);
 	int  calcRightJack(vector<card> hand, card cut);
-	int  calcFifteen(vector<card> tail);
+	int  calcFifteen(vector<card> hand);
 	void subSetSum(vector<card> hand, int target, vector<card> partial);
 	void printCardVec(vector<card> vec);
 

@@ -38,7 +38,7 @@ int Cribbage::calcFifteen(vector<card> hand)
     vector<card> partial;
 
     numFifteens = 0;
-    subSetSum(hand, target, partial);
+    this->subSetSum(hand, target, partial);
     //numFifteens = numFifteens*2; //Set the actual amount of points you get from fifteens
     
     if(verbose)
@@ -79,7 +79,7 @@ void Cribbage::subSetSum(vector<card> hand, int target, vector<card> partial)
         pCard.val = it->val;
         partialRec.push_back(pCard);
 
-       subSetSum(remaining, target, partialRec);
+        this->subSetSum(remaining, target, partialRec);
     }
 }
 
