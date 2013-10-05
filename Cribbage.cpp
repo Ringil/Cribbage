@@ -38,7 +38,7 @@ int Cribbage::calcFifteen(vector<card> hand)
     vector<card> partial;
 
     numFifteens = 0;
-    this->subSetSum(hand, target, partial);
+    subSetSum(hand, target, partial);
     //numFifteens = numFifteens*2; //Set the actual amount of points you get from fifteens
     
     if(verbose)
@@ -79,7 +79,7 @@ void Cribbage::subSetSum(vector<card> hand, int target, vector<card> partial)
         pCard.val = it->val;
         partialRec.push_back(pCard);
 
-        this->subSetSum(remaining, target, partialRec);
+        subSetSum(remaining, target, partialRec);
     }
 }
 
@@ -244,7 +244,7 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2)
 {
     vector<card>::iterator it = deck.end() - 1; //Top of the deck
 
-    if(this->numCardsLeft() >= 14)
+    if(numCardsLeft() >= 14)
     {
         //Deal 6 cards to each hand
         for(int i = 0; i < 6; i++)
@@ -266,7 +266,7 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand
 {
     vector<card>::iterator it = deck.end() - 1; //Top of the deck
 
-    if(this->numCardsLeft() >= 17)
+    if(numCardsLeft() >= 17)
     {
         //Deal 5 cards to each player
         for(int i = 0; i < 5; i++)
