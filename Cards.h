@@ -10,6 +10,10 @@
 #include <cstdlib>
 using namespace std;
 
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_int_distribution.hpp>
+using namespace boost::random;
+
 //Structure of a basic card
 struct card
 {
@@ -30,6 +34,7 @@ protected:
     void eraseStack(stack<card> &cards);
     vector<card> deck;
 public:
+    card cutDeck(); //Choose and remove the cut card from the deck
     void genDeck();
     void shuffle(); //Shuffle the deck (Currently does not shuffle very well)
     void printDeck(); //TODO: REMOVE THIS AFTER TESTING IS DONE

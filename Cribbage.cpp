@@ -287,23 +287,3 @@ void Cribbage::deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand
     else
         cout << endl << "No more cards left in the deck!" << endl;
 }
-
-card Cribbage::cutDeck()
-{
-    int max = this->numCardsLeft() - 1; //-1 because boost::uid uses a closed range
-    int index = 0;
-    card cut;
-    mt19937 gen(int(time(0))); //I think this has to be unsigned
-    uniform_int_distribution<> dist(0, max); //A closed range
-
-    index = dist(gen); //Choose the cut card index
-    
-    if(verbose)
-        cout<<"Index: "<<index<<endl;
-
-    cut.suit = deck.at(index).suit;
-    cut.val = deck.at(index).val;
-    deck.erase(deck.begin() + index - 1); //Remove the cut card from the deck
-
-    return cut;
-}

@@ -68,6 +68,22 @@ int Cards::numCardsLeft()
     return deck.size();
 }
 
+card Cards::cutDeck()
+{
+    int max = this->numCardsLeft() - 1; //-1 because boost::uid uses a closed range
+    int index = 0;
+    card cut;
+    mt19937 gen(int(time(0))); //I think this has to be unsigned
+    uniform_int_distribution<> dist(0, max); //A closed range
+
+    index = dist(gen); //Choose the cut card index
+    cut.suit = deck.at(index).suit;
+    cut.val = deck.at(index).val;
+    deck.erase(deck.begin() + index - 1); //Remove the cut card from the deck
+
+    return cut;
+}
+
 void Cards::eraseStack(stack<card> &cards)
 {
     /*

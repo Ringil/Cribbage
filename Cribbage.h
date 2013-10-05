@@ -5,10 +5,6 @@
 #include <cmath>
 using namespace std;
 
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/uniform_int_distribution.hpp>
-using namespace boost::random;
-
 #include "Cards.h"
 
 class Cribbage : public Cards
@@ -27,11 +23,10 @@ private:
 
 public:
 	Cribbage(int numHumans, int numAI);
-	bool verbose; //Change to "bool verbose = false;" if compiling w/ a c++11 compiler
-	card cutDeck(); //Choose and remove the cut card from the deck
     int  calcScore(vector<card> hand, card cut, bool crib);
 	virtual void deal(vector<card> &hand1, vector<card> &hand2); //Deal 6 cards to 2 hands
 	virtual void deal(vector<card> &hand1, vector<card> &hand2, vector<card> &hand3); //Deal 5 cards to 3 hands
 	using Cards::deal;
+	bool verbose; //Change to "bool verbose = false;" if compiling w/ a c++11 compiler
 };
 #endif
