@@ -30,7 +30,7 @@ protected:
     void eraseStack(stack<card> &cards);
     vector<card> deck;
 public:
-    Cards();
+    void genDeck();
     void shuffle(); //Shuffle the deck (Currently does not shuffle very well)
     void printDeck(); //TODO: REMOVE THIS AFTER TESTING IS DONE
     virtual void deal(vector<card> &hand); //Deal a single card

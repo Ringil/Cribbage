@@ -1,6 +1,6 @@
 #include "Cards.h"
 
-Cards::Cards()
+void Cards::genDeck()
 {    
     //Generate a deck of cards
     card cardz;

@@ -297,6 +297,10 @@ card Cribbage::cutDeck()
     uniform_int_distribution<> dist(0, max); //A closed range
 
     index = dist(gen); //Choose the cut card index
+    
+    if(verbose)
+        cout<<"Index: "<<index<<endl;
+
     cut.suit = deck.at(index).suit;
     cut.val = deck.at(index).val;
     deck.erase(deck.begin() + index - 1); //Remove the cut card from the deck
