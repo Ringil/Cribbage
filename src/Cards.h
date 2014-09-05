@@ -6,12 +6,15 @@
 #include <algorithm>
 #include <functional>
 #include <stack>
-#include <ctime>
-#include <cstdlib>
+// #include <random>       // std::default_random_engine
+// #include <chrono> 
+// #include <ctime>
+// #include <cstdlib>
 using namespace std;
 
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int_distribution.hpp>
+#include <boost/random/variate_generator.hpp>
 using namespace boost::random;
 
 //Structure of a basic card

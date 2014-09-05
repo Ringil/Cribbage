@@ -1,13 +1,13 @@
 #include "Cards.h"
 
 void Cards::genDeck()
-{    
+{
     //Generate a deck of cards
     card cardz;
     for(int i = 1; i<=13;  i++)
     {
         cardz.val = i;
-        
+
         cardz.suit = 'C';
         deck.push_back(cardz);
 
@@ -51,7 +51,7 @@ void Cards::printDeck()
 Deal a single card
 */
 void Cards::deal(vector<card> &hand)
-{    
+{
     vector<card>::iterator it = deck.end()-1; //Top of the deck
 
     if(!deck.empty())
@@ -74,7 +74,7 @@ card Cards::cutDeck()
     int index = 0;
     card cut;
     mt19937 gen(int(time(0))); //I think this has to be unsigned
-    uniform_int_distribution<> dist(0, max); //A closed range
+    boost::random::uniform_int_distribution<> dist(0, max); //A closed range
 
     index = dist(gen); //Choose the cut card index
     cut.suit = deck.at(index).suit;

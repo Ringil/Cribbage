@@ -20,7 +20,7 @@ int main()
     game.verbose = true;
     game.genDeck();
 
-    
+
     //Test hand
     test.suit = 'H';
     test.val = 11; //Jack, will be converted to a 10 when calc'ing pts
@@ -34,7 +34,7 @@ int main()
     test.suit = 'H';
     test.val = 5;
     tHand.push_back(test);
-    
+
     //Cut card
     cut = game.cutDeck();
 
@@ -45,17 +45,17 @@ int main()
 
     game.shuffle();
     game.deal(hand1,hand2,hand3);
-    
+
     printHand(hand1);
     cout<<"Test cut card:\n"<<cut.val<<cut.suit<<endl;
     cout<<"Total points for hand1: "<<game.calcScore(hand1, cut, crib)<<endl<<endl;
-    
-    printHand(hand2); 
+
+    printHand(hand2);
     cout<<"Test cut card:\n"<<cut.val<<cut.suit<<endl;
     cout<<"Total points for hand2: "<<game.calcScore(hand2, cut, crib)<<endl<<endl;
-    
-    printHand(hand3); 
-    cout<<"Test cut card:\n"<<cut.val<<cut.suit<<endl;   
+
+    printHand(hand3);
+    cout<<"Test cut card:\n"<<cut.val<<cut.suit<<endl;
     cout<<"Total points for hand3: "<<game.calcScore(hand3, cut, crib)<<endl<<endl;
 
 
