@@ -73,7 +73,7 @@ card Cards::cutDeck()
     int max = this->numCardsLeft() - 1; //-1 because boost::uid uses a closed range
     int index = 0;
     card cut;
-    mt19937 gen(int(time(0))); //I think this has to be unsigned
+    boost::random::mt19937 gen(unsigned(time(0))); //I think this has to be unsigned
     boost::random::uniform_int_distribution<> dist(0, max); //A closed range
 
     index = dist(gen); //Choose the cut card index

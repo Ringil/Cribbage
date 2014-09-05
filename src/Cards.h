@@ -7,7 +7,7 @@
 #include <functional>
 #include <stack>
 // #include <random>       // std::default_random_engine
-// #include <chrono> 
+// #include <chrono>
 // #include <ctime>
 // #include <cstdlib>
 using namespace std;
@@ -26,13 +26,13 @@ struct card
     //Overwrite the < operator so cards can be compared by their value
     bool operator<(const card &a) const
     {
-        return((this->val < a.val) ? true:false);
+        return this->val < a.val;
     }
 };
 
 class Cards
 {
-protected:    
+protected:
     int  numCardsLeft(); //Number of cards left in the deck
     void eraseStack(stack<card> &cards);
     vector<card> deck;
