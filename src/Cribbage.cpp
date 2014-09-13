@@ -112,7 +112,7 @@ int Cribbage::calcFlush(vector<card> hand, bool crib)
     */
     for(int i = 0; i<=3; i++)
     {
-        if(crib == false && numSuits[i] >= 4)
+        if(!crib && numSuits[i] >= 4)
         {
             total = numSuits[i];
 
@@ -121,7 +121,7 @@ int Cribbage::calcFlush(vector<card> hand, bool crib)
             
             return total;
         }
-        else if(crib == true && numSuits[i] == 5)
+        else if(crib && numSuits[i] == 5)
         {
             total = 5;
             
