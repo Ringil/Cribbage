@@ -1,11 +1,9 @@
 #include "Cribbage.h"
 
-Cribbage::Cribbage(int numHumans, int numAI) 
-    : verbose(false) 
+Cribbage::Cribbage(int numHumans, int numAI)
 {
     this->numHumans = numHumans;
     this->numAI = numAI;
-    numFifteens = 0;
 }
 
 void Cribbage::printCardVec(vector<card> vec)
@@ -25,7 +23,7 @@ int Cribbage::calcScore(vector<card> hand, card cut, bool crib)
 
     hand.push_back(cut);
     sort(hand.begin(), hand.end()); //Sort card structs by val
-    
+
     //Calculate rest of the points
     total +=  calcRuns(hand) + calcPairs(hand) + calcFlush(hand, crib) + calcFifteen(hand);
 
@@ -34,53 +32,12 @@ int Cribbage::calcScore(vector<card> hand, card cut, bool crib)
 
 int Cribbage::calcFifteen(vector<card> hand)
 {
-    int target = 15;
-    vector<card> partial;
+    int total = 2*subSetSum(hand, 15);
 
-    numFifteens = 0;
-    subSetSum(hand, target, partial);
-    //numFifteens = numFifteens*2; //Set the actual amount of points you get from fifteens
-    
     if(verbose)
-        cout<<"Points for 15's: "<<numFifteens<<endl;
+        cout<<"Points for 15's: "<<total<<endl;
 
-    return numFifteens;
-}
-
-//TODO: MOVE THIS TO CARDS.CPP BECAUSE ITS FAIRLY GENERAL AND COULD BE USED FOR OTHER GAMES
-void Cribbage::subSetSum(vector<card> hand, int target, vector<card> partial)
-{
-    int s = 0;
-
-    for(vector<card>::iterator it = partial.begin(); it != partial.end(); it++)
-    {
-        if(it->val > 10) //Takes care of face cards being >10
-            s += 10;
-        else
-            s += it->val;
-    }
-
-    if(s == target)
-    {
-        numFifteens += 2;
-    }
-
-    
-    if(s > target)
-        return;
-
-    for(vector<card>::iterator it = hand.begin(); it != hand.end(); it++)
-    {
-        vector<card> remaining (it+1, hand.end());
-        vector<card> partialRec (partial);
-        card pCard;
-
-        pCard.suit = it->suit;
-        pCard.val = it->val;
-        partialRec.push_back(pCard);
-
-        subSetSum(remaining, target, partialRec);
-    }
+    return total;
 }
 
 int Cribbage::calcFlush(vector<card> hand, bool crib)
@@ -118,13 +75,13 @@ int Cribbage::calcFlush(vector<card> hand, bool crib)
 
             if(verbose)
                 cout<<"Points for flushes: "<<total<<endl;
-            
+
             return total;
         }
         else if(crib && numSuits[i] == 5)
         {
             total = 5;
-            
+
             if(verbose)
                 cout<<"Points for flushes: "<<total<<endl;
 
@@ -148,7 +105,7 @@ int Cribbage::calcRuns(vector<card> hand)
     for(it = hand.begin(); it != hand.end(); it++)
     {
         /*
-        Does not account for run using ace after the king 
+        Does not account for run using ace after the king
         */
         if(runs.empty() || it->val == runs.top().val + 1)
         {
@@ -159,8 +116,8 @@ int Cribbage::calcRuns(vector<card> hand)
             duplicate++;
         }
 
-        /* 
-        Check if the next card will break the run or if it is the last 
+        /*
+        Check if the next card will break the run or if it is the last
         card in the hand.
         */
         if((it == hand.end() - 1) || (it + 1)->val > runs.top().val + 1)
@@ -170,7 +127,7 @@ int Cribbage::calcRuns(vector<card> hand)
                 if(duplicate > 0)
                     total = (int) (pow((double) runs.size(), (double) duplicate) + runs.size());
                 else
-                    total = runs.size();
+                    total = (int) runs.size();
             }
 
             duplicate = 0;
@@ -205,14 +162,14 @@ int Cribbage::calcPairs(vector<card> hand)
             Calculate amount of points from the amount of same cards ((n^2)-n)
             */
             total += (sameCards.size() * sameCards.size()) - sameCards.size();
-            
+
             eraseStack(sameCards);
         }
     }
- 
+
     if(verbose)
         cout<<"Points for pairs: "<<total<<endl;
- 
+
     return total;
 }
 
@@ -229,7 +186,7 @@ int Cribbage::calcRightJack(vector<card> hand, card cut)
             {
                 cout<<"Points for the right jack: 1\n";
             }
-            return 1;            
+            return 1;
         }
     }
 

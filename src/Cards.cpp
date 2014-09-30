@@ -94,3 +94,27 @@ void Cards::eraseStack(stack<card> &cards)
         cards.pop();
     }
 }
+
+int Cards::subSetSum(vector<card> hand, int target)
+{
+    vector<int> dp((unsigned long) (target + 1), 0);
+    dp[0] = 1;
+    int currentSum = 0;
+
+    for(int i = 0; i < hand.size(); i++)
+    {
+        int val = 0;
+        if(hand[i].val >= 10)
+            val = 10;
+        else
+            val = hand[i].val;
+
+        currentSum += val;
+
+        for(int j = min(target, currentSum); j >= val; j--)
+            dp[j] += dp[j - val];
+    }
+
+    return dp[target];
+
+}

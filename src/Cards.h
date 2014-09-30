@@ -34,6 +34,7 @@ class Cards
 {
 protected:
     int  numCardsLeft(); //Number of cards left in the deck
+    int  subSetSum(vector<card> hand, int target);
     void eraseStack(stack<card> &cards);
     vector<card> deck;
 public:

@@ -1,3 +1,10 @@
+/*
+TODO:
+-Refactor Cribbage class as Score class
+-write proper unit tests
+-update with c++11 syntax
+ */
+
 #include <iostream>
 using namespace std;
 
